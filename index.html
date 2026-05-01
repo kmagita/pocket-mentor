@@ -23,14 +23,12 @@
 }
 html,body{height:100%;overflow:hidden;}
 body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
-.app{max-width:480px;margin:0 auto;height:100vh;display:flex;flex-direction:column;position:relative;background:var(--cream);}
-.screen{display:none;flex:1;overflow-y:auto;}
-.screen.active{display:flex;flex-direction:column;}
-
-/* ── PIN SCREEN ── */
+.app{max-width:480px;margin:0 auto;height:100vh;display:flex;flex-direction:column;background:var(--cream);}
+.screen{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.screen.active{display:flex;}
+/* PIN */
 .pin-screen{align-items:center;justify-content:center;padding:2rem 1.5rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy) 0%,#1a3060 60%,#0a1530 100%);}
-.pin-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(201,168,76,0.18) 0%,transparent 70%);pointer-events:none;}
-.pin-deco{position:absolute;inset:0;pointer-events:none;}
+.pin-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(201,168,76,0.18) 0%,transparent 70%);}
 .pin-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;}
 .pin-ornament{display:flex;align-items:center;gap:10px;margin-bottom:0.6rem;}
 .oln{height:1px;width:40px;background:linear-gradient(90deg,transparent,var(--gold));}
@@ -42,94 +40,94 @@ body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
 .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(201,168,76,0.35);background:transparent;transition:all 0.2s;}
 .pin-dot.filled{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(201,168,76,0.5);}
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:260px;}
-.pin-key{height:62px;border:1px solid rgba(201,168,76,0.22);border-radius:14px;background:rgba(255,255,255,0.06);color:var(--gold-light);font-size:22px;font-weight:400;font-family:'Lato',sans-serif;cursor:pointer;transition:all 0.13s;}
+.pin-key{height:62px;border:1px solid rgba(201,168,76,0.22);border-radius:14px;background:rgba(255,255,255,0.06);color:var(--gold-light);font-size:22px;font-family:'Lato',sans-serif;cursor:pointer;transition:all 0.13s;}
 .pin-key:active{transform:scale(0.91);background:rgba(201,168,76,0.18);}
-.pin-key.del{font-size:12px;color:rgba(240,208,128,0.45);letter-spacing:0.04em;}
+.pin-key.del{font-size:12px;color:rgba(240,208,128,0.45);}
 .pin-key.empty{border:none;background:transparent;cursor:default;}
-.pin-err{font-size:12px;margin-top:0.9rem;min-height:18px;text-align:center;letter-spacing:0.05em;}
+.pin-err{font-size:12px;margin-top:0.9rem;min-height:18px;text-align:center;}
 .pin-err.error{color:#f08080;}.pin-err.success{color:#80e080;}
 .pin-footer{margin-top:1.75rem;font-size:10px;color:rgba(240,208,128,0.22);letter-spacing:0.12em;text-transform:uppercase;}
-
-/* ── MAIN SHELL ── */
+/* MAIN */
 .main-screen{flex-direction:column;}
-.tab-content{flex:1;overflow-y:auto;padding-bottom:60px;}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1rem;border-bottom:1px solid var(--border);background:var(--cream);flex-shrink:0;}
-.top-bar-title{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--navy);letter-spacing:0.08em;}
-.end-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid rgba(201,168,76,0.4);border-radius:8px;background:rgba(201,168,76,0.08);color:var(--gold-dark);font-size:11px;font-family:'Lato',sans-serif;cursor:pointer;transition:all 0.15s;letter-spacing:0.04em;}
-.end-btn:active{transform:scale(0.95);}
-.nav-bar{display:flex;border-top:1px solid var(--border);background:var(--cream);flex-shrink:0;position:sticky;bottom:0;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 4px 8px;cursor:pointer;border:none;background:none;color:var(--text3);font-size:10px;gap:3px;transition:color 0.15s;font-family:'Lato',sans-serif;letter-spacing:0.04em;}
+.tab-content{flex:1;overflow-y:auto;display:none;flex-direction:column;padding-bottom:64px;}
+.tab-content.active{display:flex;}
+.top-bar{display:flex;align-items:center;gap:8px;padding:0.9rem 1rem;border-bottom:1px solid var(--border);background:var(--cream);flex-shrink:0;}
+.top-bar-title{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--navy);letter-spacing:0.08em;flex:1;}
+.end-btn{display:flex;align-items:center;gap:5px;padding:7px 11px;border:1px solid rgba(201,168,76,0.4);border-radius:8px;background:rgba(201,168,76,0.08);color:var(--gold-dark);font-size:12px;font-family:'Lato',sans-serif;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.nav-bar{display:flex;border-top:1px solid var(--border);background:var(--cream);flex-shrink:0;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 4px 8px;cursor:pointer;border:none;background:none;color:var(--text3);font-size:10px;gap:3px;font-family:'Lato',sans-serif;}
 .nav-item.active{color:var(--navy);}
 .nav-item svg{width:22px;height:22px;}
 .nav-item.active svg{stroke:var(--gold);}
-
-/* ── BUTTONS ── */
-.btn{padding:9px 16px;font-size:13px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:var(--cream);color:var(--text);transition:all 0.15s;font-family:'Lato',sans-serif;}
-.btn:active{transform:scale(0.97);}
+/* BUTTONS */
+.btn{padding:8px 14px;font-size:13px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:var(--cream);color:var(--text);font-family:'Lato',sans-serif;}
+.btn:active{opacity:0.7;}
 .btn-primary{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
 .btn-danger{border-color:#e0a0a0;color:var(--danger);}
-.btn-danger:active{background:var(--danger-bg);}
-.btn-sm{padding:6px 12px;font-size:12px;}
-
-/* ── LIBRARY ── */
+.btn-sm{padding:6px 11px;font-size:12px;}
+/* FILTER */
 .filter-row{display:flex;gap:6px;padding:0.75rem 1rem;overflow-x:auto;border-bottom:1px solid var(--border);flex-shrink:0;}
 .filter-row::-webkit-scrollbar{display:none;}
-.filter-chip{padding:5px 14px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:var(--cream);color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.filter-chip{padding:5px 14px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:var(--cream);color:var(--text2);cursor:pointer;white-space:nowrap;}
 .filter-chip.active{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
 .content{padding:1rem;}
-.passage-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1rem 1.25rem;margin-bottom:10px;position:relative;overflow:hidden;transition:transform 0.25s;box-shadow:var(--shadow-sm);}
-.passage-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-dark));}
-.passage-card.swiped{transform:translateX(-84px);}
-.passage-card-inner{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+/* PASSAGE CARD */
+.passage-card{background:#fff;border:1px solid var(--border);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow-sm);position:relative;}
+.passage-card-accent{position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-dark));border-radius:4px 0 0 4px;}
+.passage-card-body{padding:0.9rem 0.9rem 0.9rem 1.1rem;display:flex;align-items:center;gap:10px;}
+.passage-info{flex:1;min-width:0;}
 .passage-title{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--navy);}
 .passage-meta{font-size:11px;color:var(--text3);margin-top:4px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.passage-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;}
 .badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;}
 .badge-navy{background:#e8eef8;color:var(--navy);}
 .badge-success{background:var(--success-bg);color:var(--success);}
 .badge-warn{background:var(--warn-bg);color:var(--warn);}
 .badge-gray{background:#f0ece0;color:var(--text3);}
-.delete-reveal{position:absolute;right:0;top:0;bottom:0;width:80px;background:var(--danger-bg);display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0 14px 14px 0;}
-.delete-reveal span{color:var(--danger);font-size:12px;font-weight:700;}
+/* DELETE CONFIRMATION — expands inside card, no accidental trigger */
+.delete-zone{padding:0.6rem 1rem 0.75rem 1.1rem;border-top:1px solid #f5d0d0;display:none;align-items:center;justify-content:space-between;gap:8px;background:#fff9f9;border-radius:0 0 14px 14px;flex-wrap:wrap;}
+.delete-zone.open{display:flex;}
+.delete-zone-msg{font-size:13px;color:var(--danger);flex:1;}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:14px;line-height:1.7;}
-
-/* ── FORMS ── */
+/* FORMS */
 .form-group{margin-bottom:1rem;}
 .form-label{display:block;font-size:12px;color:var(--text3);margin-bottom:5px;letter-spacing:0.06em;text-transform:uppercase;}
-input[type=text],input[type=password],textarea,select{width:100%;padding:11px 12px;font-size:15px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font-family:'Lato',sans-serif;transition:border 0.15s;-webkit-appearance:none;}
+input[type=text],input[type=password],textarea,select{width:100%;padding:11px 12px;font-size:15px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font-family:'Lato',sans-serif;-webkit-appearance:none;}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
 textarea{resize:vertical;min-height:140px;line-height:1.6;}
 select{height:44px;}
 .section-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
-
-/* ── RECORDING BOX ── */
+/* RECORDING */
 .rec-box{border:1px dashed var(--gold-dark);border-radius:12px;padding:1.25rem;text-align:center;background:linear-gradient(135deg,#fffbf0,#fdf6e3);}
 .rec-status{font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6;}
-.mic-btn{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;transition:all 0.2s;box-shadow:var(--shadow-sm);}
+.mic-btn{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;box-shadow:var(--shadow-sm);}
 .mic-btn.listening{border-color:#c0392b;background:#fff5f5;}
 .mic-btn.listening .mic-svg{fill:#c0392b;}
-.mic-svg{fill:var(--text3);width:26px;height:26px;transition:fill 0.15s;}
+.mic-svg{fill:var(--text3);width:26px;height:26px;}
 @keyframes rpulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.25);}50%{box-shadow:0 0 0 14px rgba(192,57,43,0);}}
 .mic-btn.listening{animation:rpulse 1.4s infinite;}
 .rec-timer{font-size:13px;color:var(--danger);font-weight:700;min-height:18px;}
-
-/* ── PRACTICE ── */
+/* PRACTICE */
 .practice-header{padding:1rem;border-bottom:1px solid var(--border);background:var(--cream);flex-shrink:0;}
 .level-row{display:flex;gap:5px;margin:0.5rem 0;}
-.level-btn{flex:1;padding:7px 2px;font-size:10px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text2);cursor:pointer;text-align:center;transition:all 0.15s;font-family:'Lato',sans-serif;}
+.level-btn{flex:1;padding:7px 2px;font-size:10px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text2);cursor:pointer;text-align:center;font-family:'Lato',sans-serif;}
 .level-btn.active{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
 .format-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0.25rem;}
-.format-btn{padding:6px 12px;font-size:11px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all 0.15s;font-family:'Lato',sans-serif;}
+.format-btn{padding:6px 11px;font-size:11px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;font-family:'Lato',sans-serif;}
 .format-btn.active{background:var(--gold);color:#fff;border-color:var(--gold-dark);}
 .chunk-nav{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1rem;font-size:12px;color:var(--text3);background:var(--cream2);border-bottom:1px solid var(--border);flex-shrink:0;}
 .chunk-box{margin:1rem;border:1px solid var(--border);border-radius:14px;padding:1.25rem;background:#fff;box-shadow:var(--shadow-sm);}
 .chunk-text{font-size:17px;line-height:2.1;color:var(--text);}
-.word-token{display:inline;padding:1px 2px;border-radius:3px;transition:background 0.2s;}
+.word-token{display:inline;padding:1px 2px;border-radius:3px;}
 .word-token.correct{background:#d4edda;color:#155724;}
 .word-token.wrong{background:#f8d7da;color:#721c24;text-decoration:line-through;}
+.word-token.close{background:#fff3cd;color:#856404;}
 .word-token.hidden{background:#e8e0cc;color:#e8e0cc;border-radius:4px;padding:0 8px;}
+.blind-box{margin:1rem;border:2px dashed var(--gold-dark);border-radius:14px;padding:1.5rem;background:linear-gradient(135deg,#fffbf0,#fdf6e3);text-align:center;}
+.blind-prompt{font-family:'Cinzel',serif;font-size:15px;color:var(--navy);margin-bottom:0.5rem;}
+.blind-sub{font-size:13px;color:var(--text3);line-height:1.6;}
 .playback-box{margin:0 1rem 0.75rem;display:flex;gap:12px;align-items:center;padding:0.9rem 1rem;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm);}
-.play-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.15s;}
-.play-btn:active{opacity:0.8;}
+.play-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .attempt-box{margin:0 1rem 0.75rem;border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;background:#fff;box-shadow:var(--shadow-sm);}
 .attempt-label{font-size:12px;color:var(--text3);margin-bottom:0.75rem;letter-spacing:0.05em;text-transform:uppercase;}
 .attempt-transcript{font-size:13px;color:var(--text2);font-style:italic;min-height:22px;margin:0.5rem 0 0;padding:8px 12px;background:var(--cream2);border-radius:8px;text-align:left;line-height:1.6;}
@@ -138,11 +136,10 @@ select{height:44px;}
 .score-card.cc{background:var(--success-bg);border:1px solid #b8dfc5;}
 .score-card.mc{background:var(--danger-bg);border:1px solid #f0c0c0;}
 .score-card.ac{background:#eef2fb;border:1px solid #c0ceef;}
-.score-val{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--navy);}
+.score-val{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--navy);}
 .score-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
 .action-row{display:flex;gap:8px;padding:0 1rem 1.5rem;}
-
-/* ── PROGRESS ── */
+/* PROGRESS */
 .progress-hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3060 100%);padding:1.5rem 1.25rem 2.75rem;position:relative;overflow:hidden;flex-shrink:0;}
 .progress-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;right:-20px;height:42px;background:var(--cream);border-radius:50% 50% 0 0;}
 .progress-hero-title{font-family:'Cinzel',serif;font-size:20px;color:var(--gold-light);margin-bottom:0.25rem;}
@@ -152,7 +149,7 @@ select{height:44px;}
 .stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;}
 .donut-wrap{display:flex;justify-content:center;padding:0.75rem 0 0.25rem;gap:1.25rem;flex-wrap:wrap;}
 .donut-item{text-align:center;}
-.donut-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.donut-label{font-size:10px;color:var(--text3);text-transform:uppercase;margin-top:4px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .progress-list{padding:0 1rem 1.5rem;}
 .progress-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1rem 1.25rem;margin-bottom:10px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
 .progress-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-dark));}
@@ -165,8 +162,8 @@ select{height:44px;}
 .ornament-divider{display:flex;align-items:center;gap:8px;margin:0.5rem 1rem 0;}
 .ornament-divider span{height:1px;flex:1;background:var(--border);}
 .ornament-divider i{color:var(--gold);font-size:12px;font-style:normal;}
-
-/* ── SETTINGS ── */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:14px;line-height:1.7;}
+/* SETTINGS */
 .settings-section-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin:1.25rem 0 0.4rem;}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);}
 .settings-row:last-child{border-bottom:none;}
@@ -184,16 +181,9 @@ select{height:44px;}
 <body>
 <div class="app" id="app">
 
-<!-- ════════ PIN SCREEN ════════ -->
+<!-- PIN SCREEN -->
 <div class="screen pin-screen active" id="pinScreen">
   <div class="pin-bg-glow"></div>
-  <svg class="pin-deco" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
-    <circle cx="200" cy="180" r="220" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
-    <circle cx="200" cy="180" r="160" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
-    <circle cx="200" cy="180" r="100" fill="none" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
-    <line x1="0" y1="0" x2="400" y2="700" stroke="rgba(201,168,76,0.025)" stroke-width="1"/>
-    <line x1="400" y1="0" x2="0" y2="700" stroke="rgba(201,168,76,0.025)" stroke-width="1"/>
-  </svg>
   <div class="pin-inner">
     <div class="pin-ornament"><div class="oln"></div><div class="odd"></div><div class="oln r"></div></div>
     <div class="pin-title">Pocket Mentor</div>
@@ -221,17 +211,18 @@ select{height:44px;}
   </div>
 </div>
 
-<!-- ════════ MAIN SCREEN ════════ -->
+<!-- MAIN SCREEN -->
 <div class="screen main-screen" id="mainScreen">
 
-  <!-- LIBRARY TAB -->
-  <div id="tabLibrary" class="tab-content" style="display:none;">
+  <!-- LIBRARY -->
+  <div id="tabLibrary" class="tab-content">
     <div class="top-bar">
       <div class="top-bar-title">My Passages</div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <button class="btn btn-sm btn-primary" onclick="showAddTab()">+ Add</button>
-        <button class="end-btn" onclick="endSession()">⏻ End</button>
-      </div>
+      <button class="btn btn-sm btn-primary" onclick="showAddTab()">+ Add</button>
+      <button class="end-btn" onclick="endSession()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v7"/><path d="M6.8 5.8a9 9 0 1 0 10.4 0"/></svg>
+        End Session
+      </button>
     </div>
     <div class="filter-row">
       <div class="filter-chip active" onclick="filterPassages('all',this)">All</div>
@@ -243,14 +234,15 @@ select{height:44px;}
     <div class="content" id="passageList"></div>
   </div>
 
-  <!-- ADD PASSAGE TAB -->
-  <div id="tabAdd" class="tab-content" style="display:none;">
+  <!-- ADD / EDIT PASSAGE -->
+  <div id="tabAdd" class="tab-content">
     <div class="top-bar">
-      <button class="btn btn-sm" onclick="showTab('library')">← Back</button>
-      <div class="top-bar-title">New Passage</div>
-      <div style="width:60px;"></div>
+      <button class="btn btn-sm" onclick="cancelEdit()">&#8592; Back</button>
+      <div class="top-bar-title" id="addTabTitle">New Passage</div>
+      <div style="width:52px;"></div>
     </div>
     <div class="content">
+      <input type="hidden" id="editingId">
       <div class="form-group">
         <label class="form-label">Title</label>
         <input type="text" id="newTitle" placeholder="e.g. First degree charge" autocomplete="off">
@@ -272,54 +264,56 @@ select{height:44px;}
       <div class="rec-box">
         <div class="rec-status" id="recStatus">Type the passage above, then record yourself reading it aloud verbatim. This becomes your personal reference.</div>
         <div class="mic-btn" id="refMicBtn" onclick="toggleRefRecord()">
-          <svg class="mic-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/>
-          </svg>
+          <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/></svg>
         </div>
         <div class="rec-timer" id="recTimer"></div>
       </div>
       <div style="display:flex;gap:8px;margin-top:1.25rem;">
-        <button class="btn" style="flex:1;" onclick="showTab('library')">Cancel</button>
+        <button class="btn" style="flex:1;" onclick="cancelEdit()">Cancel</button>
         <button class="btn btn-primary" style="flex:1;" onclick="savePassage()">Save Passage</button>
       </div>
     </div>
   </div>
 
-  <!-- PRACTICE TAB -->
-  <div id="tabPractice" class="tab-content" style="display:none;flex-direction:column;">
+  <!-- PRACTICE -->
+  <div id="tabPractice" class="tab-content">
     <div class="practice-header">
       <div style="display:flex;align-items:center;justify-content:space-between;">
-        <button class="btn btn-sm" onclick="showTab('library')">← Library</button>
+        <button class="btn btn-sm" onclick="showTab('library')">&#8592; Library</button>
         <div style="text-align:right;">
-          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--navy);" id="practiceTitle">—</div>
-          <div style="font-size:12px;color:var(--text3);" id="practiceSub">—</div>
+          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--navy);" id="practiceTitle">-</div>
+          <div style="font-size:12px;color:var(--text3);" id="practiceSub">-</div>
         </div>
       </div>
-      <div class="section-label" style="margin-top:0.75rem;">Level — how much to recite at once</div>
+      <div class="section-label" style="margin-top:0.75rem;">Level</div>
       <div class="level-row">
         <div class="level-btn active" onclick="setLevel(1,this)">1 sentence</div>
-        <div class="level-btn" onclick="setLevel(2,this)">2–3 sent.</div>
+        <div class="level-btn" onclick="setLevel(2,this)">2-3 sent.</div>
         <div class="level-btn" onclick="setLevel(3,this)">Paragraph</div>
         <div class="level-btn" onclick="setLevel(4,this)">Full</div>
       </div>
       <div class="section-label">Format</div>
       <div class="format-row">
         <div class="format-btn active" onclick="setFormat('recite',this)">Recite</div>
+        <div class="format-btn" onclick="setFormat('blind',this)">Blind recite</div>
         <div class="format-btn" onclick="setFormat('fillin',this)">Fill blanks</div>
         <div class="format-btn" onclick="setFormat('listen',this)">Listen</div>
-        <div class="format-btn" onclick="setFormat('qa',this)">Q&A</div>
+        <div class="format-btn" onclick="setFormat('qa',this)">Q&amp;A</div>
       </div>
     </div>
     <div style="flex:1;overflow-y:auto;">
       <div class="chunk-nav">
         <span id="chunkLabel">Chunk 1</span>
         <div style="display:flex;gap:6px;">
-          <button class="btn btn-sm" onclick="prevChunk()">← Prev</button>
-          <button class="btn btn-sm" onclick="nextChunk()">Next →</button>
+          <button class="btn btn-sm" onclick="prevChunk()">&#8592; Prev</button>
+          <button class="btn btn-sm" onclick="nextChunk()">Next &#8594;</button>
         </div>
       </div>
-      <div class="chunk-box"><div class="chunk-text" id="chunkDisplay"></div></div>
+      <div class="chunk-box" id="chunkBox"><div class="chunk-text" id="chunkDisplay"></div></div>
+      <div class="blind-box" id="blindBox" style="display:none;">
+        <div class="blind-prompt">Blind Recite</div>
+        <div class="blind-sub">Text is hidden. Listen to the reference if needed, then tap the mic and recite from memory. Text will be revealed with your results.</div>
+      </div>
       <div class="playback-box">
         <div class="play-btn" onclick="playReference()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold-light)"><path d="M8 5v14l11-7z"/></svg>
@@ -330,12 +324,9 @@ select{height:44px;}
         </div>
       </div>
       <div class="attempt-box">
-        <div class="attempt-label">Your recital — tap mic and speak</div>
+        <div class="attempt-label">Your recital - tap mic and speak</div>
         <div class="mic-btn" id="practiceMic" onclick="togglePracticeRecord()" style="margin:0 auto 0.5rem;">
-          <svg class="mic-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/>
-          </svg>
+          <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/></svg>
         </div>
         <div class="attempt-transcript" id="attemptTranscript">Tap mic to begin reciting...</div>
       </div>
@@ -346,25 +337,25 @@ select{height:44px;}
       </div>
       <div class="action-row" id="practiceActions" style="display:none;">
         <button class="btn" style="flex:1;" onclick="tryAgain()">Try again</button>
-        <button class="btn btn-primary" style="flex:1;" onclick="nextChunk()">Next chunk →</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="nextChunk()">Next chunk</button>
       </div>
     </div>
   </div>
 
-  <!-- PROGRESS TAB -->
-  <div id="tabProgress" class="tab-content" style="display:none;">
+  <!-- PROGRESS -->
+  <div id="tabProgress" class="tab-content">
     <div class="progress-hero">
       <div class="progress-hero-title">Progress</div>
       <div style="font-size:13px;color:rgba(240,208,128,0.6);" id="heroSub">Your journey at a glance</div>
     </div>
     <div class="progress-stats" id="progressStats"></div>
-    <div class="ornament-divider"><span></span><i>◆</i><span></span></div>
+    <div class="ornament-divider"><span></span><i>&#9670;</i><span></span></div>
     <div class="donut-wrap" id="donutWrap"></div>
     <div class="progress-list" id="progressList"></div>
   </div>
 
-  <!-- SETTINGS TAB -->
-  <div id="tabSettings" class="tab-content" style="display:none;">
+  <!-- SETTINGS -->
+  <div id="tabSettings" class="tab-content">
     <div class="top-bar"><div class="top-bar-title">Settings</div></div>
     <div class="content">
       <div class="settings-section-title">Security</div>
@@ -390,7 +381,7 @@ select{height:44px;}
       </div>
       <div id="erasePinForm" style="display:none;">
         <div class="inline-form">
-          <p>A separate 4-digit PIN. Entering it at the lock screen silently erases everything and opens a blank app.</p>
+          <p>A separate 4-digit PIN. Entering it at the lock screen silently erases everything.</p>
           <input type="password" maxlength="4" id="newErasePin" placeholder="Erase PIN" inputmode="numeric">
           <input type="password" maxlength="4" id="newErasePinConfirm" placeholder="Confirm erase PIN" inputmode="numeric">
           <div class="inline-form-actions">
@@ -406,7 +397,7 @@ select{height:44px;}
       </div>
       <div id="eraseAllForm" style="display:none;">
         <div class="erase-confirm">
-          <p>This permanently deletes all passages, reference recordings and progress. There is no undo.</p>
+          <p>This permanently deletes all passages, recordings and progress. There is no undo.</p>
           <div style="display:flex;gap:8px;">
             <button class="btn" style="flex:1;" onclick="toggleInline('eraseAllForm')">Cancel</button>
             <button class="btn btn-danger" style="flex:1;" onclick="doEraseAll()">Erase everything</button>
@@ -420,564 +411,241 @@ select{height:44px;}
   <!-- NAV BAR -->
   <div class="nav-bar">
     <button class="nav-item active" id="nav-library" onclick="showTab('library')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-      </svg>Library
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Library
     </button>
     <button class="nav-item" id="nav-progress" onclick="showTab('progress')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>Progress
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Progress
     </button>
     <button class="nav-item" id="nav-settings" onclick="showTab('settings')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>Settings
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
     </button>
   </div>
 
-</div><!-- end main-screen -->
-</div><!-- end app -->
+</div>
+</div>
 
 <script>
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-const DEFAULT_PIN = '1717';
-let st = {
-  pinEntry: '',
-  passages: [],
-  activePassage: null,
-  chunkIdx: 0, level: 1, format: 'recite',
-  refRecording: null,
-  mediaRecorder: null, recChunks: [],
-  recInterval: null, recSec: 0,
-  recognition: null, practiceTranscript: '',
-  progressMap: {},
-  accessPin: DEFAULT_PIN,
-  erasePin: null,
-  currentTab: 'library'
-};
+const DEFAULT_PIN='1717';
+let st={pinEntry:'',passages:[],activePassage:null,chunkIdx:0,level:1,format:'recite',refRecording:null,mediaRecorder:null,recChunks:[],recInterval:null,recSec:0,recognition:null,practiceTranscript:'',progressMap:{},accessPin:DEFAULT_PIN,erasePin:null,editingId:null};
 
-// ═══════════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════════
-function load() {
-  try {
-    const p = localStorage.getItem('pm_passages'); if (p) st.passages = JSON.parse(p);
-    const pm = localStorage.getItem('pm_progress'); if (pm) st.progressMap = JSON.parse(pm);
-    const ap = localStorage.getItem('pm_apin'); if (ap) st.accessPin = ap;
-    const ep = localStorage.getItem('pm_epin'); if (ep) st.erasePin = ep;
-    const rc = localStorage.getItem('pm_recs');
-    if (rc) { const m = JSON.parse(rc); st.passages.forEach(p => { if (m[p.id]) p.refAudio = m[p.id]; }); }
-  } catch(e) { console.warn('Load error', e); }
-}
-
-function persist() {
-  try {
-    localStorage.setItem('pm_passages', JSON.stringify(st.passages.map(p => ({...p, refAudio: undefined}))));
-    localStorage.setItem('pm_progress', JSON.stringify(st.progressMap));
-    localStorage.setItem('pm_apin', st.accessPin);
-    if (st.erasePin) localStorage.setItem('pm_epin', st.erasePin);
-    const m = {}; st.passages.forEach(p => { if (p.refAudio) m[p.id] = p.refAudio; });
-    localStorage.setItem('pm_recs', JSON.stringify(m));
-  } catch(e) {
-    if (e.name === 'QuotaExceededError') alert('Storage full. Please delete some passages to free up space.');
-    else console.warn('Save error', e);
-  }
-}
-
-function wipeAll() {
-  localStorage.clear();
-  st.passages = []; st.progressMap = {}; st.erasePin = null; st.accessPin = DEFAULT_PIN;
-}
-
+function load(){try{const p=localStorage.getItem('pm_passages');if(p)st.passages=JSON.parse(p);const pm=localStorage.getItem('pm_progress');if(pm)st.progressMap=JSON.parse(pm);const ap=localStorage.getItem('pm_apin');if(ap)st.accessPin=ap;const ep=localStorage.getItem('pm_epin');if(ep)st.erasePin=ep;const rc=localStorage.getItem('pm_recs');if(rc){const m=JSON.parse(rc);st.passages.forEach(p=>{if(m[p.id])p.refAudio=m[p.id];});}}catch(e){}}
+function persist(){try{localStorage.setItem('pm_passages',JSON.stringify(st.passages.map(p=>({...p,refAudio:undefined}))));localStorage.setItem('pm_progress',JSON.stringify(st.progressMap));localStorage.setItem('pm_apin',st.accessPin);if(st.erasePin)localStorage.setItem('pm_epin',st.erasePin);const m={};st.passages.forEach(p=>{if(p.refAudio)m[p.id]=p.refAudio;});localStorage.setItem('pm_recs',JSON.stringify(m));}catch(e){if(e.name==='QuotaExceededError')alert('Storage full. Please delete some passages.');}}
+function wipeAll(){localStorage.clear();st.passages=[];st.progressMap={};st.erasePin=null;st.accessPin=DEFAULT_PIN;}
 load();
 
-// ═══════════════════════════════════════════
-// PIN
-// ═══════════════════════════════════════════
-function pinPress(d) {
-  if (st.pinEntry.length >= 4) return;
-  st.pinEntry += d; updateDots();
-  if (st.pinEntry.length === 4) setTimeout(checkPin, 150);
-}
-function pinDel() { st.pinEntry = st.pinEntry.slice(0, -1); updateDots(); }
-function updateDots() {
-  for (let i = 0; i < 4; i++)
-    document.getElementById('d' + i).classList.toggle('filled', i < st.pinEntry.length);
-}
-function checkPin() {
-  const entered = st.pinEntry; st.pinEntry = ''; updateDots();
-  const err = document.getElementById('pinErr');
-  if (st.erasePin && entered === st.erasePin) {
-    wipeAll(); err.className = 'pin-err success'; err.textContent = 'All data has been erased.'; return;
-  }
-  if (entered === st.accessPin) {
-    document.getElementById('pinScreen').classList.remove('active');
-    document.getElementById('mainScreen').classList.add('active');
-    showTab('library');
-  } else {
-    err.className = 'pin-err error'; err.textContent = 'Incorrect PIN. Please try again.';
-  }
-}
-function endSession() {
-  stopAllMedia();
-  document.getElementById('mainScreen').classList.remove('active');
-  document.getElementById('pinScreen').classList.add('active');
-  st.pinEntry = ''; updateDots();
-  document.getElementById('pinErr').textContent = '';
-}
-function stopAllMedia() {
-  if (st.recognition) { try { st.recognition.stop(); } catch(e) {} st.recognition = null; }
-  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') { try { st.mediaRecorder.stop(); } catch(e) {} }
-  clearInterval(st.recInterval);
-}
+function pinPress(d){if(st.pinEntry.length>=4)return;st.pinEntry+=d;updateDots();if(st.pinEntry.length===4)setTimeout(checkPin,150);}
+function pinDel(){st.pinEntry=st.pinEntry.slice(0,-1);updateDots();}
+function updateDots(){for(let i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('filled',i<st.pinEntry.length);}
+function checkPin(){const e=st.pinEntry;st.pinEntry='';updateDots();const err=document.getElementById('pinErr');if(st.erasePin&&e===st.erasePin){wipeAll();err.className='pin-err success';err.textContent='All data erased.';return;}if(e===st.accessPin){document.getElementById('pinScreen').classList.remove('active');document.getElementById('mainScreen').classList.add('active');showTab('library');}else{err.className='pin-err error';err.textContent='Incorrect PIN. Try again.';}}
+function endSession(){stopAllMedia();document.getElementById('mainScreen').classList.remove('active');document.getElementById('pinScreen').classList.add('active');st.pinEntry='';updateDots();document.getElementById('pinErr').textContent='';}
+function stopAllMedia(){if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;}if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){try{st.mediaRecorder.stop();}catch(e){}}clearInterval(st.recInterval);}
 
-// ═══════════════════════════════════════════
-// TAB NAVIGATION
-// ═══════════════════════════════════════════
-const TABS = { library: 'tabLibrary', add: 'tabAdd', practice: 'tabPractice', progress: 'tabProgress', settings: 'tabSettings' };
+function showTab(name){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));const map={library:'tabLibrary',add:'tabAdd',practice:'tabPractice',progress:'tabProgress',settings:'tabSettings'};const el=document.getElementById(map[name]);if(el)el.classList.add('active');['library','progress','settings'].forEach(n=>{const btn=document.getElementById('nav-'+n);if(btn)btn.classList.toggle('active',n===name);});if(name==='library')renderLibrary();if(name==='progress')renderProgress();}
 
-function showTab(name) {
-  Object.values(TABS).forEach(id => document.getElementById(id).style.display = 'none');
-  document.getElementById(TABS[name]).style.display = 'flex';
-  document.getElementById(TABS[name]).style.flexDirection = 'column';
-  ['library','progress','settings'].forEach(n => {
-    const el = document.getElementById('nav-' + n);
-    if (el) el.classList.toggle('active', n === name);
-  });
-  st.currentTab = name;
-  if (name === 'library') renderLibrary();
-  if (name === 'progress') renderProgress();
-}
+function showAddTab(id){st.editingId=id||null;const p=id?st.passages.find(x=>x.id===id):null;document.getElementById('addTabTitle').textContent=p?'Edit Passage':'New Passage';document.getElementById('editingId').value=id||'';document.getElementById('newTitle').value=p?p.title:'';document.getElementById('newFormat').value=p?p.format:'charge';document.getElementById('newText').value=p?p.text:'';st.refRecording=p?p.refAudio:null;document.getElementById('recStatus').textContent=p&&p.refAudio?'Recording exists. Tap mic to re-record if needed.':'Type the passage above, then record yourself reading it aloud verbatim.';document.getElementById('recTimer').textContent='';document.getElementById('refMicBtn').classList.remove('listening');if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){try{st.mediaRecorder.stop();}catch(e){}}clearInterval(st.recInterval);st.recSec=0;showTab('add');}
+function cancelEdit(){st.editingId=null;showTab('library');}
 
-function showAddTab() {
-  resetAdd();
-  showTab('add');
-}
+function filterPassages(type,el){document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderLibrary(type);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-// ═══════════════════════════════════════════
-// LIBRARY
-// ═══════════════════════════════════════════
-function resetAdd() {
-  document.getElementById('newTitle').value = '';
-  document.getElementById('newText').value = '';
-  document.getElementById('newFormat').value = 'charge';
-  document.getElementById('recStatus').textContent = 'Type the passage above, then record yourself reading it aloud verbatim. This becomes your personal reference.';
-  document.getElementById('recTimer').textContent = '';
-  document.getElementById('refMicBtn').classList.remove('listening');
-  st.refRecording = null;
-  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') { try { st.mediaRecorder.stop(); } catch(e) {} }
-  clearInterval(st.recInterval); st.recSec = 0;
-}
-
-function filterPassages(type, el) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderLibrary(type);
-}
-
-function renderLibrary(filter = 'all') {
-  const list = document.getElementById('passageList');
-  const data = filter === 'all' ? st.passages : st.passages.filter(p => p.format === filter);
-  if (!data.length) {
-    list.innerHTML = '<div class="empty-state">No passages yet.<br>Tap <strong>+ Add</strong> to begin.</div>'; return;
-  }
-  list.innerHTML = data.map(p => {
-    const prog = st.progressMap[p.id]; const pct = prog ? Math.round(prog.accuracy) : 0;
-    const bCls = pct >= 80 ? 'badge-success' : pct >= 40 ? 'badge-warn' : 'badge-gray';
-    const bTxt = pct >= 80 ? 'Strong' : pct >= 40 ? 'Progressing' : 'Not started';
-    const recIcon = p.refAudio ? '<span style="color:var(--success);font-size:11px;">✓ Recorded</span>' : '<span style="color:var(--warn);font-size:11px;">⚠ No recording</span>';
-    return `<div class="passage-card" id="pc-${p.id}" ontouchstart="swipeStart(event,'${p.id}')" ontouchend="swipeEnd(event,'${p.id}')">
-      <div class="delete-reveal" onclick="deletePassage('${p.id}')"><span>Delete</span></div>
-      <div class="passage-card-inner">
-        <div style="min-width:0;padding-left:6px;">
-          <div class="passage-title">${escHtml(p.title)}</div>
-          <div class="passage-meta">
-            <span class="badge badge-navy">${p.format}</span>
-            <span class="badge ${bCls}">${bTxt}</span>
-            ${recIcon}
-          </div>
+function renderLibrary(filter='all'){
+  const list=document.getElementById('passageList');
+  const data=filter==='all'?st.passages:st.passages.filter(p=>p.format===filter);
+  if(!data.length){list.innerHTML='<div class="empty-state">No passages yet.<br>Tap <strong>+ Add</strong> to begin.</div>';return;}
+  list.innerHTML=data.map(p=>{
+    const prog=st.progressMap[p.id];const pct=prog?Math.round(prog.accuracy):0;
+    const bCls=pct>=80?'badge-success':pct>=40?'badge-warn':'badge-gray';
+    const bTxt=pct>=80?'Strong':pct>=40?'Progressing':'Not started';
+    const recIcon=p.refAudio?'<span style="color:var(--success);font-size:11px;">&#10003; Recorded</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No recording</span>';
+    return `<div class="passage-card" id="pc-${p.id}">
+      <div class="passage-card-accent"></div>
+      <div class="passage-card-body">
+        <div class="passage-info">
+          <div class="passage-title">${esc(p.title)}</div>
+          <div class="passage-meta"><span class="badge badge-navy">${p.format}</span><span class="badge ${bCls}">${bTxt}</span>${recIcon}</div>
         </div>
-        <button class="btn btn-sm btn-primary" style="flex-shrink:0;" onclick="openPractice('${p.id}')">Practice</button>
+        <div class="passage-actions">
+          <button class="btn btn-sm" onclick="showAddTab('${p.id}')" title="Edit" style="padding:6px 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="btn btn-sm btn-primary" onclick="openPractice('${p.id}')">Practice</button>
+          <button class="btn btn-sm" onclick="toggleDelete('${p.id}')" style="padding:6px 8px;color:var(--danger);border-color:#e0a0a0;" title="Delete">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="delete-zone" id="dz-${p.id}">
+        <div class="delete-zone-msg">Delete &ldquo;${esc(p.title)}&rdquo;? This cannot be undone.</div>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <button class="btn btn-sm" onclick="toggleDelete('${p.id}')">Cancel</button>
+          <button class="btn btn-sm btn-danger" onclick="confirmDelete('${p.id}')">Delete</button>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toggleDelete(id){document.getElementById('dz-'+id).classList.toggle('open');}
+function confirmDelete(id){st.passages=st.passages.filter(p=>p.id!==id);delete st.progressMap[id];persist();renderLibrary();}
 
-let swipeX = 0;
-function swipeStart(e, id) { swipeX = e.touches[0].clientX; }
-function swipeEnd(e, id) {
-  const dx = e.changedTouches[0].clientX - swipeX;
-  document.getElementById('pc-' + id).classList.toggle('swiped', dx < -40);
-}
-function deletePassage(id) {
-  if (!confirm('Delete this passage and its recording? This cannot be undone.')) return;
-  st.passages = st.passages.filter(p => p.id !== id);
-  delete st.progressMap[id];
-  persist(); renderLibrary();
-}
-
-// ═══════════════════════════════════════════
-// RECORDING (reference)
-// ═══════════════════════════════════════════
-function toggleRefRecord() {
-  const btn = document.getElementById('refMicBtn');
-  const status = document.getElementById('recStatus');
-  const timer = document.getElementById('recTimer');
-  const text = document.getElementById('newText').value.trim();
-
-  if (!text) { alert('Please type the passage text first.'); return; }
-
-  // If already recording — stop
-  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') {
-    st.mediaRecorder.stop();
-    btn.classList.remove('listening');
-    clearInterval(st.recInterval);
-    status.textContent = 'Processing recording...';
-    return;
-  }
-
-  // Start recording
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    alert('Microphone access is not available. Please open this app in Chrome (Android) or Safari (iOS) and ensure you have allowed microphone permissions.'); return;
-  }
-
-  navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
-    st.recChunks = [];
-    let mimeType = '';
-    ['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].forEach(t => {
-      if (!mimeType && MediaRecorder.isTypeSupported(t)) mimeType = t;
-    });
-    const opts = mimeType ? { mimeType } : {};
-    try { st.mediaRecorder = new MediaRecorder(stream, opts); }
-    catch(e) { st.mediaRecorder = new MediaRecorder(stream); }
-
-    st.mediaRecorder.ondataavailable = e => { if (e.data && e.data.size > 0) st.recChunks.push(e.data); };
-    st.mediaRecorder.onstop = () => {
-      const blob = new Blob(st.recChunks, { type: mimeType || 'audio/webm' });
-      const reader = new FileReader();
-      reader.onload = () => {
-        st.refRecording = reader.result;
-        status.textContent = '✓ Reference recording saved. Tap mic to re-record if needed.';
-        timer.textContent = '';
-        btn.classList.remove('listening');
-      };
-      reader.onerror = () => { status.textContent = 'Error saving recording. Please try again.'; };
+function toggleRefRecord(){
+  const btn=document.getElementById('refMicBtn'),status=document.getElementById('recStatus'),timer=document.getElementById('recTimer');
+  const text=document.getElementById('newText').value.trim();
+  if(!text){alert('Please type the passage text first.');return;}
+  if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){st.mediaRecorder.stop();btn.classList.remove('listening');clearInterval(st.recInterval);status.textContent='Processing...';return;}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){alert('Microphone not available. Please use Chrome on Android or Safari on iOS.');return;}
+  navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(stream=>{
+    st.recChunks=[];
+    let mimeType='';
+    ['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].forEach(t=>{if(!mimeType&&MediaRecorder.isTypeSupported(t))mimeType=t;});
+    try{st.mediaRecorder=new MediaRecorder(stream,mimeType?{mimeType}:{});}catch(e){st.mediaRecorder=new MediaRecorder(stream);}
+    st.mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size>0)st.recChunks.push(e.data);};
+    st.mediaRecorder.onstop=()=>{
+      const blob=new Blob(st.recChunks,{type:mimeType||'audio/webm'});
+      const reader=new FileReader();
+      reader.onload=()=>{st.refRecording=reader.result;status.textContent='Recording saved. Tap mic to re-record if needed.';timer.textContent='';};
+      reader.onerror=()=>{status.textContent='Error saving. Please try again.';};
       reader.readAsDataURL(blob);
-      stream.getTracks().forEach(t => t.stop());
+      stream.getTracks().forEach(t=>t.stop());
     };
-    st.mediaRecorder.onerror = e => {
-      status.textContent = 'Recording error: ' + e.error; btn.classList.remove('listening');
-      clearInterval(st.recInterval); stream.getTracks().forEach(t => t.stop());
-    };
-
-    st.mediaRecorder.start(250); // collect data every 250ms
-    btn.classList.add('listening');
-    st.recSec = 0; timer.textContent = '0s';
-    st.recInterval = setInterval(() => { st.recSec++; timer.textContent = st.recSec + 's'; }, 1000);
-    status.textContent = 'Recording... read the passage aloud clearly, then tap to stop.';
-  }).catch(err => {
-    if (err.name === 'NotAllowedError') alert('Microphone permission denied. Please allow microphone access in your browser settings and try again.');
-    else if (err.name === 'NotFoundError') alert('No microphone found on this device.');
-    else alert('Could not access microphone: ' + err.message);
+    st.mediaRecorder.start(250);btn.classList.add('listening');st.recSec=0;timer.textContent='0s';
+    st.recInterval=setInterval(()=>{st.recSec++;timer.textContent=st.recSec+'s';},1000);
+    status.textContent='Recording... read the passage aloud clearly, then tap to stop.';
+  }).catch(err=>{
+    if(err.name==='NotAllowedError')alert('Microphone permission denied. Please allow microphone access in your browser settings.');
+    else alert('Could not access microphone: '+err.message);
   });
 }
 
-// ═══════════════════════════════════════════
-// SAVE PASSAGE
-// ═══════════════════════════════════════════
-function savePassage() {
-  const title = document.getElementById('newTitle').value.trim();
-  const text = document.getElementById('newText').value.trim();
-  const format = document.getElementById('newFormat').value;
-  if (!title) { alert('Please enter a title for this passage.'); return; }
-  if (!text) { alert('Please enter the passage text.'); return; }
-  if (!st.refRecording) { alert('Please record your reference reading before saving.\n\nTap the microphone button and read the passage aloud.'); return; }
-  const id = 'p_' + Date.now();
-  st.passages.push({ id, title, text, format, refAudio: st.refRecording, created: Date.now() });
-  persist();
-  showTab('library');
-  renderLibrary();
+function savePassage(){
+  const title=document.getElementById('newTitle').value.trim();
+  const text=document.getElementById('newText').value.trim();
+  const format=document.getElementById('newFormat').value;
+  const editId=document.getElementById('editingId').value;
+  if(!title){alert('Please enter a title.');return;}
+  if(!text){alert('Please enter the passage text.');return;}
+  if(!st.refRecording){alert('Please record your reference reading before saving.\n\nTap the microphone button and read the passage aloud.');return;}
+  if(editId){const idx=st.passages.findIndex(p=>p.id===editId);if(idx!==-1)st.passages[idx]={...st.passages[idx],title,text,format,refAudio:st.refRecording};}
+  else{const id='p_'+Date.now();st.passages.push({id,title,text,format,refAudio:st.refRecording,created:Date.now()});}
+  persist();st.editingId=null;showTab('library');
 }
 
-// ═══════════════════════════════════════════
-// PRACTICE
-// ═══════════════════════════════════════════
-function getSentences(t) {
-  return t.match(/[^.!?]+[.!?]*/g)?.map(s => s.trim()).filter(Boolean) || [t];
-}
-function getChunks() {
-  if (!st.activePassage) return [];
-  const sents = getSentences(st.activePassage.text);
-  const size = st.level === 1 ? 1 : st.level === 2 ? 2 : st.level === 3 ? 4 : sents.length;
-  const out = [];
-  for (let i = 0; i < sents.length; i += size) out.push(sents.slice(i, i + size).join(' '));
-  return out;
-}
+function getSentences(t){return t.match(/[^.!?]+[.!?]*/g)?.map(s=>s.trim()).filter(Boolean)||[t];}
+function getChunks(){if(!st.activePassage)return[];const sents=getSentences(st.activePassage.text);const size=st.level===1?1:st.level===2?2:st.level===3?4:sents.length;const out=[];for(let i=0;i<sents.length;i+=size)out.push(sents.slice(i,i+size).join(' '));return out;}
 
-function openPractice(id) {
-  const p = st.passages.find(p => p.id === id);
-  if (!p) return;
-  if (!p.refAudio) { alert('This passage has no reference recording.\n\nPlease go back, edit the passage and record your reference first.'); return; }
-  st.activePassage = p; st.chunkIdx = 0; st.level = 1; st.format = 'recite';
-  document.getElementById('practiceTitle').textContent = p.title;
-  document.getElementById('practiceSub').textContent = p.format;
-  document.querySelectorAll('.level-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-  document.querySelectorAll('.format-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-  showTab('practice');
-  renderChunk();
-}
+function openPractice(id){const p=st.passages.find(p=>p.id===id);if(!p)return;if(!p.refAudio){alert('No reference recording found.\n\nPlease edit this passage and record your reference first.');return;}st.activePassage=p;st.chunkIdx=0;st.level=1;st.format='recite';document.getElementById('practiceTitle').textContent=p.title;document.getElementById('practiceSub').textContent=p.format;document.querySelectorAll('.level-btn').forEach((b,i)=>b.classList.toggle('active',i===0));document.querySelectorAll('.format-btn').forEach((b,i)=>b.classList.toggle('active',i===0));showTab('practice');renderChunk();}
 
-function renderChunk() {
-  const chunks = getChunks(), chunk = chunks[st.chunkIdx] || '';
-  document.getElementById('chunkLabel').textContent = 'Chunk ' + (st.chunkIdx + 1) + ' of ' + chunks.length;
-  const words = chunk.split(/\s+/).filter(Boolean);
-  let html = '';
-  if (st.format === 'fillin') {
-    html = words.map((w, i) => i % 3 === 2 ? `<span class="word-token hidden">${escHtml(w)}</span> ` : `<span class="word-token">${escHtml(w)}</span> `).join('');
-  } else if (st.format === 'listen') {
-    html = '<em style="color:var(--text3);">Listen to the reference recording, then recite when ready.</em>';
-  } else if (st.format === 'qa') {
-    const sents = getSentences(chunk);
-    html = sents.map((s, i) => i % 2 === 0
-      ? `<div style="color:var(--text3);font-size:15px;margin-bottom:6px;"><strong>Q:</strong> ${escHtml(s)}</div>`
-      : `<div style="margin-bottom:10px;"><strong>A:</strong> ${escHtml(s)}</div>`).join('');
-  } else {
-    html = words.map(w => `<span class="word-token">${escHtml(w)}</span> `).join('');
+function renderChunk(){
+  const chunks=getChunks(),chunk=chunks[st.chunkIdx]||'';
+  document.getElementById('chunkLabel').textContent='Chunk '+(st.chunkIdx+1)+' of '+chunks.length;
+  const words=chunk.split(/\s+/).filter(Boolean);
+  const chunkBox=document.getElementById('chunkBox'),blindBox=document.getElementById('blindBox');
+  if(st.format==='blind'){chunkBox.style.display='none';blindBox.style.display='block';}
+  else{
+    chunkBox.style.display='block';blindBox.style.display='none';
+    let html='';
+    if(st.format==='fillin'){html=words.map((w,i)=>i%3===2?`<span class="word-token hidden">${esc(w)}</span> `:`<span class="word-token">${esc(w)}</span> `).join('');}
+    else if(st.format==='listen'){html='<em style="color:var(--text3);">Listen to the reference, then recite when ready.</em>';}
+    else if(st.format==='qa'){const sents=getSentences(chunk);html=sents.map((s,i)=>i%2===0?`<div style="color:var(--text3);font-size:15px;margin-bottom:6px;"><strong>Q:</strong> ${esc(s)}</div>`:`<div style="margin-bottom:10px;"><strong>A:</strong> ${esc(s)}</div>`).join('');}
+    else{html=words.map(w=>`<span class="word-token">${esc(w)}</span> `).join('');}
+    document.getElementById('chunkDisplay').innerHTML=html;
   }
-  document.getElementById('chunkDisplay').innerHTML = html;
-  document.getElementById('scoreRow').style.display = 'none';
-  document.getElementById('practiceActions').style.display = 'none';
-  document.getElementById('attemptTranscript').textContent = 'Tap mic to begin reciting...';
+  document.getElementById('scoreRow').style.display='none';
+  document.getElementById('practiceActions').style.display='none';
+  document.getElementById('attemptTranscript').textContent='Tap mic to begin reciting...';
   document.getElementById('practiceMic').classList.remove('listening');
-  st.practiceTranscript = '';
-  if (st.recognition) { try { st.recognition.stop(); } catch(e) {} st.recognition = null; }
+  st.practiceTranscript='';
+  if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;}
 }
 
-function setLevel(lvl, el) {
-  st.level = lvl; st.chunkIdx = 0;
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active'); renderChunk();
-}
-function setFormat(fmt, el) {
-  st.format = fmt;
-  document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active'); renderChunk();
+function setLevel(lvl,el){st.level=lvl;st.chunkIdx=0;document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderChunk();}
+function setFormat(fmt,el){st.format=fmt;document.querySelectorAll('.format-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderChunk();}
+function playReference(){if(!st.activePassage?.refAudio){alert('No reference recording found.');return;}try{new Audio(st.activePassage.refAudio).play();}catch(e){alert('Could not play audio: '+e.message);}}
+
+function togglePracticeRecord(){
+  const btn=document.getElementById('practiceMic'),tr=document.getElementById('attemptTranscript');
+  if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;btn.classList.remove('listening');return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Speech recognition requires Chrome on Android or Safari on iOS (14.5+).');return;}
+  const rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang='en-US';st.practiceTranscript='';
+  rec.onresult=e=>{let interim='',final='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}st.practiceTranscript+=final;tr.textContent=(st.practiceTranscript+interim).trim()||'Listening...';};
+  rec.onend=()=>{btn.classList.remove('listening');st.recognition=null;if(st.practiceTranscript.trim())checkAttempt();else tr.textContent='Nothing heard. Tap mic and try again.';};
+  rec.onerror=e=>{btn.classList.remove('listening');st.recognition=null;if(e.error==='not-allowed')alert('Microphone access denied.');else tr.textContent='Error: '+e.error+'. Try again.';};
+  try{rec.start();st.recognition=rec;btn.classList.add('listening');tr.textContent='Listening...';}catch(e){alert('Could not start speech recognition: '+e.message);}
 }
 
-function playReference() {
-  if (!st.activePassage?.refAudio) { alert('No reference recording found.'); return; }
-  try { const a = new Audio(st.activePassage.refAudio); a.play(); }
-  catch(e) { alert('Could not play audio: ' + e.message); }
-}
+// Fuzzy matching using Levenshtein distance
+function similarity(a,b){if(a===b)return 1;if(!a||!b)return 0;const la=a.length,lb=b.length;const dp=Array.from({length:la+1},(_,i)=>Array.from({length:lb+1},(_,j)=>i===0?j:j===0?i:0));for(let i=1;i<=la;i++)for(let j=1;j<=lb;j++)dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);return 1-dp[la][lb]/Math.max(la,lb);}
+function norm(w){return w.toLowerCase().replace(/[^a-z0-9']/g,'');}
+const MATCH=0.72,CLOSE=0.5;
 
-function togglePracticeRecord() {
-  const btn = document.getElementById('practiceMic');
-  const tr = document.getElementById('attemptTranscript');
-
-  if (st.recognition) {
-    try { st.recognition.stop(); } catch(e) {}
-    st.recognition = null; btn.classList.remove('listening'); return;
+function checkAttempt(){
+  const chunks=getChunks(),chunk=chunks[st.chunkIdx]||'';
+  // Blind mode: reveal text before scoring
+  if(st.format==='blind'){
+    const words=chunk.split(/\s+/).filter(Boolean);
+    document.getElementById('chunkBox').style.display='block';
+    document.getElementById('blindBox').style.display='none';
+    document.getElementById('chunkDisplay').innerHTML=words.map(w=>`<span class="word-token">${esc(w)}</span> `).join('');
   }
-
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    alert('Speech recognition is not supported in this browser.\n\nPlease use:\n• Chrome on Android\n• Safari on iOS (iOS 14.5+)');
-    return;
-  }
-
-  const rec = new SR();
-  rec.continuous = true; rec.interimResults = true; rec.lang = 'en-US';
-  st.practiceTranscript = '';
-
-  rec.onresult = e => {
-    let interim = '', final = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) final += e.results[i][0].transcript + ' ';
-      else interim += e.results[i][0].transcript;
-    }
-    st.practiceTranscript += final;
-    tr.textContent = (st.practiceTranscript + interim).trim() || 'Listening...';
-  };
-  rec.onend = () => {
-    btn.classList.remove('listening'); st.recognition = null;
-    if (st.practiceTranscript.trim()) checkAttempt();
-    else tr.textContent = 'Nothing heard. Tap mic and try again.';
-  };
-  rec.onerror = e => {
-    btn.classList.remove('listening'); st.recognition = null;
-    if (e.error === 'not-allowed') alert('Microphone access denied. Please allow microphone access in your browser settings.');
-    else if (e.error === 'network') alert('Network error with speech recognition. Please check your internet connection.');
-    else tr.textContent = 'Error: ' + e.error + '. Tap mic to try again.';
-  };
-
-  try {
-    rec.start(); st.recognition = rec;
-    btn.classList.add('listening');
-    tr.textContent = 'Listening...';
-  } catch(e) {
-    alert('Could not start speech recognition: ' + e.message);
-  }
-}
-
-function norm(w) { return w.toLowerCase().replace(/[^a-z0-9']/g, ''); }
-
-function checkAttempt() {
-  const chunks = getChunks(), chunk = chunks[st.chunkIdx] || '';
-  const ref = chunk.split(/\s+/).map(norm).filter(Boolean);
-  const spoken = st.practiceTranscript.trim().split(/\s+/).map(norm).filter(Boolean);
-  const els = document.querySelectorAll('#chunkDisplay .word-token');
-  const used = new Array(spoken.length).fill(false);
-  let correct = 0, wrong = 0;
-  ref.forEach((rw, ri) => {
-    const el = els[ri]; if (!el) return;
-    const mi = spoken.findIndex((sw, si) => !used[si] && sw === rw);
-    if (mi !== -1) { used[mi] = true; el.className = 'word-token correct'; correct++; }
-    else { el.className = 'word-token wrong'; wrong++; }
+  const refWords=chunk.split(/\s+/).map(norm).filter(Boolean);
+  const spokenWords=st.practiceTranscript.trim().split(/\s+/).map(norm).filter(Boolean);
+  const els=document.querySelectorAll('#chunkDisplay .word-token');
+  const used=new Array(spokenWords.length).fill(false);
+  let correct=0,close=0,wrong=0;
+  refWords.forEach((rw,ri)=>{
+    const el=els[ri];if(!el)return;
+    let mi=spokenWords.findIndex((sw,si)=>!used[si]&&sw===rw);
+    if(mi!==-1){used[mi]=true;el.className='word-token correct';correct++;return;}
+    let bestScore=0,bestIdx=-1;
+    spokenWords.forEach((sw,si)=>{if(!used[si]){const s=similarity(rw,sw);if(s>bestScore){bestScore=s;bestIdx=si;}}});
+    if(bestScore>=MATCH){used[bestIdx]=true;el.className='word-token correct';correct++;}
+    else if(bestScore>=CLOSE){used[bestIdx]=true;el.className='word-token close';close++;}
+    else{el.className='word-token wrong';wrong++;}
   });
-  const total = ref.length, acc = total ? Math.round((correct / total) * 100) : 0;
-  document.getElementById('scoreCorrect').textContent = correct;
-  document.getElementById('scoreMissed').textContent = wrong;
-  document.getElementById('scoreAccuracy').textContent = acc + '%';
-  document.getElementById('scoreRow').style.display = 'flex';
-  document.getElementById('practiceActions').style.display = 'flex';
-  const pid = st.activePassage.id;
-  if (!st.progressMap[pid]) st.progressMap[pid] = { sessions: 0, accuracy: 0 };
-  const prev = st.progressMap[pid];
-  prev.sessions++;
-  prev.accuracy = Math.round((prev.accuracy * (prev.sessions - 1) + acc) / prev.sessions);
+  const total=refWords.length,acc=total?Math.round(((correct+close*0.5)/total)*100):0;
+  document.getElementById('scoreCorrect').textContent=correct+(close>0?' (+'+close+'~)':'');
+  document.getElementById('scoreMissed').textContent=wrong;
+  document.getElementById('scoreAccuracy').textContent=acc+'%';
+  document.getElementById('scoreRow').style.display='flex';
+  document.getElementById('practiceActions').style.display='flex';
+  const pid=st.activePassage.id;
+  if(!st.progressMap[pid])st.progressMap[pid]={sessions:0,accuracy:0};
+  const prev=st.progressMap[pid];prev.sessions++;prev.accuracy=Math.round((prev.accuracy*(prev.sessions-1)+acc)/prev.sessions);
   persist();
 }
 
-function tryAgain() { st.practiceTranscript = ''; renderChunk(); }
-function prevChunk() { if (st.chunkIdx > 0) { st.chunkIdx--; renderChunk(); } }
-function nextChunk() {
-  const chunks = getChunks();
-  if (st.chunkIdx < chunks.length - 1) { st.chunkIdx++; renderChunk(); }
-  else alert('All chunks complete at this level.\n\nWell done, brother! Try moving up a level.');
+function tryAgain(){st.practiceTranscript='';if(st.format==='blind'){document.getElementById('chunkBox').style.display='none';document.getElementById('blindBox').style.display='block';}renderChunk();}
+function prevChunk(){if(st.chunkIdx>0){st.chunkIdx--;renderChunk();}}
+function nextChunk(){const chunks=getChunks();if(st.chunkIdx<chunks.length-1){st.chunkIdx++;renderChunk();}else alert('All chunks complete at this level.\n\nWell done, brother! Try moving up a level.');}
+
+function drawDonut(id,pct,col){const c=document.getElementById(id);if(!c)return;const ctx=c.getContext('2d'),r=36,cx=44,cy=44,tau=2*Math.PI;ctx.clearRect(0,0,88,88);ctx.beginPath();ctx.arc(cx,cy,r,0,tau);ctx.strokeStyle='#ece4cc';ctx.lineWidth=9;ctx.stroke();if(pct>0){ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+tau*(pct/100));ctx.strokeStyle=col;ctx.lineWidth=9;ctx.lineCap='round';ctx.stroke();}ctx.fillStyle='#1a1208';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(pct+'%',cx,cy);}
+
+function renderProgress(){
+  const total=st.passages.length;
+  const totalSessions=Object.values(st.progressMap).reduce((a,p)=>a+p.sessions,0);
+  const strong=st.passages.filter(p=>st.progressMap[p.id]&&st.progressMap[p.id].accuracy>=80).length;
+  document.getElementById('heroSub').textContent=total?`${total} passage${total!==1?'s':''} \u00b7 ${totalSessions} session${totalSessions!==1?'s':''}`:'Your journey at a glance';
+  document.getElementById('progressStats').innerHTML=`<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div><div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div><div class="stat-box"><div class="stat-num">${strong}</div><div class="stat-label">Mastered</div></div>`;
+  if(!total){document.getElementById('donutWrap').innerHTML='';document.getElementById('progressList').innerHTML='<div class="empty-state">No passages yet.<br>Add one from the Library.</div>';return;}
+  const top=st.passages.slice(0,3);
+  document.getElementById('donutWrap').innerHTML=top.map(p=>`<div class="donut-item"><canvas id="dn_${p.id}" width="88" height="88"></canvas><div class="donut-label">${esc(p.title)}</div></div>`).join('');
+  setTimeout(()=>{top.forEach(p=>{const pct=st.progressMap[p.id]?Math.round(st.progressMap[p.id].accuracy):0;drawDonut('dn_'+p.id,pct,pct>=80?'#2d9e5f':pct>=40?'#c9a84c':'#ccbbaa');});},60);
+  document.getElementById('progressList').innerHTML=st.passages.map(p=>{const prog=st.progressMap[p.id];const acc=prog?Math.round(prog.accuracy):0;const sess=prog?prog.sessions:0;const pctColor=acc>=80?'var(--success)':acc>=40?'var(--warn)':'var(--text3)';return `<div class="progress-item"><div class="prog-header"><div class="prog-title">${esc(p.title)}</div><div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div></div><div class="prog-bar-wrap"><div class="prog-bar${acc>=80?' strong':''}" style="width:${acc}%"></div></div><div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess!==1?'s':''}</span></div></div>`;}).join('');
 }
 
-// ═══════════════════════════════════════════
-// PROGRESS
-// ═══════════════════════════════════════════
-function drawDonut(id, pct, col) {
-  const c = document.getElementById(id); if (!c) return;
-  const ctx = c.getContext('2d'), r = 36, cx = 44, cy = 44, tau = 2 * Math.PI;
-  ctx.clearRect(0, 0, 88, 88);
-  ctx.beginPath(); ctx.arc(cx, cy, r, 0, tau); ctx.strokeStyle = '#ece4cc'; ctx.lineWidth = 9; ctx.stroke();
-  if (pct > 0) {
-    ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + tau * (pct / 100));
-    ctx.strokeStyle = col; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.stroke();
-  }
-  ctx.fillStyle = '#1a1208'; ctx.font = 'bold 13px sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(pct + '%', cx, cy);
-}
+function toggleInline(id){const el=document.getElementById(id),vis=el.style.display!=='none';['accessPinForm','erasePinForm','eraseAllForm'].forEach(f=>document.getElementById(f).style.display='none');if(!vis)el.style.display='block';}
+function saveAccessPin(){const cur=document.getElementById('currentPin').value.trim();const n1=document.getElementById('newPin1').value.trim();const n2=document.getElementById('newPin2').value.trim();if(cur!==st.accessPin){alert('Current PIN is incorrect.');return;}if(!/^\d{4}$/.test(n1)){alert('New PIN must be exactly 4 digits.');return;}if(n1!==n2){alert('New PINs do not match.');return;}if(n1===st.erasePin){alert('New PIN cannot match the erase PIN.');return;}st.accessPin=n1;persist();toggleInline('accessPinForm');['currentPin','newPin1','newPin2'].forEach(id=>document.getElementById(id).value='');feedback('Access PIN updated.','success');}
+function saveErasePin(){const val=document.getElementById('newErasePin').value.trim();const conf=document.getElementById('newErasePinConfirm').value.trim();if(!/^\d{4}$/.test(val)){alert('Erase PIN must be exactly 4 digits.');return;}if(val!==conf){alert('Erase PINs do not match.');return;}if(val===st.accessPin){alert('Erase PIN must differ from access PIN.');return;}st.erasePin=val;persist();toggleInline('erasePinForm');['newErasePin','newErasePinConfirm'].forEach(id=>document.getElementById(id).value='');feedback('Erase PIN set.','success');}
+function doEraseAll(){wipeAll();toggleInline('eraseAllForm');renderLibrary();feedback('All data erased.','success');}
+function feedback(msg,type){const fb=document.getElementById('settingsFeedback');fb.style.color=type==='success'?'var(--success)':'var(--danger)';fb.textContent=msg;setTimeout(()=>fb.textContent='',4000);}
 
-function renderProgress() {
-  const total = st.passages.length;
-  const totalSessions = Object.values(st.progressMap).reduce((a, p) => a + p.sessions, 0);
-  const keys = Object.keys(st.progressMap);
-  const strong = st.passages.filter(p => st.progressMap[p.id] && st.progressMap[p.id].accuracy >= 80).length;
-  document.getElementById('heroSub').textContent = total
-    ? `${total} passage${total !== 1 ? 's' : ''} · ${totalSessions} session${totalSessions !== 1 ? 's' : ''}`
-    : 'Your journey at a glance';
-  document.getElementById('progressStats').innerHTML = `
-    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div>
-    <div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div>
-    <div class="stat-box"><div class="stat-num">${strong}</div><div class="stat-label">Mastered</div></div>`;
-  if (!total) {
-    document.getElementById('donutWrap').innerHTML = '';
-    document.getElementById('progressList').innerHTML = '<div class="empty-state">No passages yet.<br>Add one from the Library.</div>'; return;
-  }
-  const top = st.passages.slice(0, 3);
-  document.getElementById('donutWrap').innerHTML = top.map(p => {
-    return `<div class="donut-item"><canvas id="dn_${p.id}" width="88" height="88"></canvas><div class="donut-label">${escHtml(p.title)}</div></div>`;
-  }).join('');
-  setTimeout(() => {
-    top.forEach(p => {
-      const pct = st.progressMap[p.id] ? Math.round(st.progressMap[p.id].accuracy) : 0;
-      const col = pct >= 80 ? '#2d9e5f' : pct >= 40 ? '#c9a84c' : '#ccbbaa';
-      drawDonut('dn_' + p.id, pct, col);
-    });
-  }, 60);
-  document.getElementById('progressList').innerHTML = st.passages.map(p => {
-    const prog = st.progressMap[p.id];
-    const acc = prog ? Math.round(prog.accuracy) : 0;
-    const sess = prog ? prog.sessions : 0;
-    const isStrong = acc >= 80;
-    const pctColor = acc >= 80 ? 'var(--success)' : acc >= 40 ? 'var(--warn)' : 'var(--text3)';
-    return `<div class="progress-item">
-      <div class="prog-header">
-        <div class="prog-title">${escHtml(p.title)}</div>
-        <div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div>
-      </div>
-      <div class="prog-bar-wrap"><div class="prog-bar${isStrong ? ' strong' : ''}" style="width:${acc}%"></div></div>
-      <div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess !== 1 ? 's' : ''}</span></div>
-    </div>`;
-  }).join('');
-}
+// Service worker only on GitHub Pages
+if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
 
-// ═══════════════════════════════════════════
-// SETTINGS
-// ═══════════════════════════════════════════
-function toggleInline(id) {
-  const el = document.getElementById(id);
-  const isVisible = el.style.display !== 'none';
-  ['accessPinForm','erasePinForm','eraseAllForm'].forEach(f => document.getElementById(f).style.display = 'none');
-  if (!isVisible) el.style.display = 'block';
-}
-
-function saveAccessPin() {
-  const cur = document.getElementById('currentPin').value.trim();
-  const n1 = document.getElementById('newPin1').value.trim();
-  const n2 = document.getElementById('newPin2').value.trim();
-  if (cur !== st.accessPin) { alert('Current PIN is incorrect.'); return; }
-  if (!/^\d{4}$/.test(n1)) { alert('New PIN must be exactly 4 digits.'); return; }
-  if (n1 !== n2) { alert('New PINs do not match. Please enter them again.'); return; }
-  if (n1 === st.erasePin) { alert('New PIN cannot be the same as your erase PIN.'); return; }
-  st.accessPin = n1; persist();
-  toggleInline('accessPinForm');
-  ['currentPin','newPin1','newPin2'].forEach(id => document.getElementById(id).value = '');
-  feedback('Access PIN updated successfully.', 'success');
-}
-
-function saveErasePin() {
-  const val = document.getElementById('newErasePin').value.trim();
-  const conf = document.getElementById('newErasePinConfirm').value.trim();
-  if (!/^\d{4}$/.test(val)) { alert('Erase PIN must be exactly 4 digits.'); return; }
-  if (val !== conf) { alert('Erase PINs do not match. Please enter them again.'); return; }
-  if (val === st.accessPin) { alert('Erase PIN must be different from your access PIN.'); return; }
-  st.erasePin = val; persist();
-  toggleInline('erasePinForm');
-  ['newErasePin','newErasePinConfirm'].forEach(id => document.getElementById(id).value = '');
-  feedback('Erase PIN set.', 'success');
-}
-
-function doEraseAll() {
-  wipeAll(); toggleInline('eraseAllForm'); renderLibrary();
-  feedback('All data has been erased.', 'success');
-}
-
-function feedback(msg, type) {
-  const fb = document.getElementById('settingsFeedback');
-  fb.style.color = type === 'success' ? 'var(--success)' : 'var(--danger)';
-  fb.textContent = msg;
-  setTimeout(() => fb.textContent = '', 4000);
-}
-
-// Service worker only activates on GitHub Pages
-if ('serviceWorker' in navigator && /github\.io/.test(location.hostname)) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
-}
-
-// Init
 showTab('library');
 </script>
 </body>
