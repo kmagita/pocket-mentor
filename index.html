@@ -26,6 +26,7 @@ body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
 .app{max-width:480px;margin:0 auto;height:100vh;display:flex;flex-direction:column;background:var(--cream);}
 .screen{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .screen.active{display:flex;}
+
 /* PIN */
 .pin-screen{align-items:center;justify-content:center;padding:2rem 1.5rem;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy) 0%,#1a3060 60%,#0a1530 100%);}
 .pin-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(201,168,76,0.18) 0%,transparent 70%);}
@@ -47,6 +48,7 @@ body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
 .pin-err{font-size:12px;margin-top:0.9rem;min-height:18px;text-align:center;}
 .pin-err.error{color:#f08080;}.pin-err.success{color:#80e080;}
 .pin-footer{margin-top:1.75rem;font-size:10px;color:rgba(240,208,128,0.22);letter-spacing:0.12em;text-transform:uppercase;}
+
 /* MAIN */
 .main-screen{flex-direction:column;}
 .tab-content{flex:1;overflow-y:auto;display:none;flex-direction:column;padding-bottom:64px;}
@@ -59,18 +61,21 @@ body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
 .nav-item.active{color:var(--navy);}
 .nav-item svg{width:22px;height:22px;}
 .nav-item.active svg{stroke:var(--gold);}
+
 /* BUTTONS */
 .btn{padding:8px 14px;font-size:13px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:var(--cream);color:var(--text);font-family:'Lato',sans-serif;}
 .btn:active{opacity:0.7;}
 .btn-primary{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
 .btn-danger{border-color:#e0a0a0;color:var(--danger);}
 .btn-sm{padding:6px 11px;font-size:12px;}
+
 /* FILTER */
 .filter-row{display:flex;gap:6px;padding:0.75rem 1rem;overflow-x:auto;border-bottom:1px solid var(--border);flex-shrink:0;}
 .filter-row::-webkit-scrollbar{display:none;}
 .filter-chip{padding:5px 14px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:var(--cream);color:var(--text2);cursor:pointer;white-space:nowrap;}
 .filter-chip.active{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
 .content{padding:1rem;}
+
 /* PASSAGE CARD */
 .passage-card{background:#fff;border:1px solid var(--border);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow-sm);position:relative;}
 .passage-card-accent{position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-dark));border-radius:4px 0 0 4px;}
@@ -84,11 +89,11 @@ body{background:var(--cream);font-family:'Lato',sans-serif;color:var(--text);}
 .badge-success{background:var(--success-bg);color:var(--success);}
 .badge-warn{background:var(--warn-bg);color:var(--warn);}
 .badge-gray{background:#f0ece0;color:var(--text3);}
-/* DELETE CONFIRMATION — expands inside card, no accidental trigger */
 .delete-zone{padding:0.6rem 1rem 0.75rem 1.1rem;border-top:1px solid #f5d0d0;display:none;align-items:center;justify-content:space-between;gap:8px;background:#fff9f9;border-radius:0 0 14px 14px;flex-wrap:wrap;}
 .delete-zone.open{display:flex;}
 .delete-zone-msg{font-size:13px;color:var(--danger);flex:1;}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:14px;line-height:1.7;}
+
 /* FORMS */
 .form-group{margin-bottom:1rem;}
 .form-label{display:block;font-size:12px;color:var(--text3);margin-bottom:5px;letter-spacing:0.06em;text-transform:uppercase;}
@@ -97,16 +102,21 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
 textarea{resize:vertical;min-height:140px;line-height:1.6;}
 select{height:44px;}
 .section-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
-/* RECORDING */
+
+/* RECORDING BOX */
 .rec-box{border:1px dashed var(--gold-dark);border-radius:12px;padding:1.25rem;text-align:center;background:linear-gradient(135deg,#fffbf0,#fdf6e3);}
 .rec-status{font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6;}
-.mic-btn{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;box-shadow:var(--shadow-sm);}
+.rec-steps{font-size:12px;color:var(--text3);line-height:1.8;margin-bottom:1rem;text-align:left;padding:0 0.5rem;}
+.rec-steps li{margin-bottom:4px;}
+.mic-btn{width:68px;height:68px;border-radius:50%;border:2px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;box-shadow:var(--shadow-sm);transition:all 0.2s;}
 .mic-btn.listening{border-color:#c0392b;background:#fff5f5;}
 .mic-btn.listening .mic-svg{fill:#c0392b;}
 .mic-svg{fill:var(--text3);width:26px;height:26px;}
 @keyframes rpulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.25);}50%{box-shadow:0 0 0 14px rgba(192,57,43,0);}}
 .mic-btn.listening{animation:rpulse 1.4s infinite;}
 .rec-timer{font-size:13px;color:var(--danger);font-weight:700;min-height:18px;}
+.mapping-status{font-size:12px;color:var(--text3);margin-top:8px;min-height:16px;font-style:italic;}
+
 /* PRACTICE */
 .practice-header{padding:1rem;border-bottom:1px solid var(--border);background:var(--cream);flex-shrink:0;}
 .level-row{display:flex;gap:5px;margin:0.5rem 0;}
@@ -117,21 +127,41 @@ select{height:44px;}
 .format-btn.active{background:var(--gold);color:#fff;border-color:var(--gold-dark);}
 .chunk-nav{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1rem;font-size:12px;color:var(--text3);background:var(--cream2);border-bottom:1px solid var(--border);flex-shrink:0;}
 .chunk-box{margin:1rem;border:1px solid var(--border);border-radius:14px;padding:1.25rem;background:#fff;box-shadow:var(--shadow-sm);}
-.chunk-text{font-size:17px;line-height:2.1;color:var(--text);}
-.word-token{display:inline;padding:1px 2px;border-radius:3px;}
+.chunk-text{font-size:17px;line-height:2.2;color:var(--text);}
+
+/* WORD TOKENS — tappable for manual correction */
+.word-token{display:inline-block;padding:2px 3px;border-radius:4px;margin:1px;cursor:pointer;transition:background 0.15s;position:relative;}
+.word-token:active{opacity:0.7;}
 .word-token.correct{background:#d4edda;color:#155724;}
 .word-token.wrong{background:#f8d7da;color:#721c24;text-decoration:line-through;}
 .word-token.close{background:#fff3cd;color:#856404;}
-.word-token.hidden{background:#e8e0cc;color:#e8e0cc;border-radius:4px;padding:0 8px;}
+.word-token.hidden{background:#e8e0cc;color:#e8e0cc;border-radius:4px;padding:2px 10px;cursor:default;}
+.word-token.pending{color:var(--text);background:transparent;}
+.tap-hint{font-size:11px;color:var(--text3);text-align:center;margin:-0.5rem 1rem 0.5rem;font-style:italic;}
+
 .blind-box{margin:1rem;border:2px dashed var(--gold-dark);border-radius:14px;padding:1.5rem;background:linear-gradient(135deg,#fffbf0,#fdf6e3);text-align:center;}
+.listen-recite-box{margin:1rem;border:2px dashed #1a3060;border-radius:14px;padding:1.5rem;background:linear-gradient(135deg,#eef2fb,#e8eef8);text-align:center;}
 .blind-prompt{font-family:'Cinzel',serif;font-size:15px;color:var(--navy);margin-bottom:0.5rem;}
 .blind-sub{font-size:13px;color:var(--text3);line-height:1.6;}
+.listen-recite-box .blind-prompt{color:#1a3060;}
+.listen-recite-box .blind-sub{color:#5a6a8a;}
+
+/* MIC CONTROL BAR */
+.mic-control{margin:0 1rem 0.75rem;background:#fff;border:1px solid var(--border);border-radius:14px;padding:1rem;box-shadow:var(--shadow-sm);}
+.mic-control-top{display:flex;align-items:center;gap:12px;}
+.mic-control-info{flex:1;}
+.mic-control-title{font-size:13px;font-weight:700;color:var(--navy);}
+.mic-control-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+.mic-live-text{font-size:13px;color:var(--text2);font-style:italic;min-height:20px;margin-top:0.75rem;padding:8px 10px;background:var(--cream2);border-radius:8px;line-height:1.5;}
+
 .playback-box{margin:0 1rem 0.75rem;display:flex;gap:12px;align-items:center;padding:0.9rem 1rem;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-sm);}
-.play-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.attempt-box{margin:0 1rem 0.75rem;border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;background:#fff;box-shadow:var(--shadow-sm);}
-.attempt-label{font-size:12px;color:var(--text3);margin-bottom:0.75rem;letter-spacing:0.05em;text-transform:uppercase;}
-.attempt-transcript{font-size:13px;color:var(--text2);font-style:italic;min-height:22px;margin:0.5rem 0 0;padding:8px 12px;background:var(--cream2);border-radius:8px;text-align:left;line-height:1.6;}
-.score-row{display:flex;gap:8px;margin:0 1rem 0.75rem;}
+.play-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.15s;}
+.play-btn:active{opacity:0.7;}
+.playback-progress{height:3px;background:var(--cream2);border-radius:2px;margin-top:6px;overflow:hidden;display:none;}
+.playback-progress-bar{height:3px;background:var(--gold);border-radius:2px;width:0%;transition:width 0.1s linear;}
+
+/* SCORE */
+.score-row{display:flex;gap:8px;margin:0 1rem 0.5rem;}
 .score-card{flex:1;border-radius:12px;padding:12px 6px;text-align:center;box-shadow:var(--shadow-sm);}
 .score-card.cc{background:var(--success-bg);border:1px solid #b8dfc5;}
 .score-card.mc{background:var(--danger-bg);border:1px solid #f0c0c0;}
@@ -139,6 +169,10 @@ select{height:44px;}
 .score-val{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--navy);}
 .score-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
 .action-row{display:flex;gap:8px;padding:0 1rem 1.5rem;}
+.legend-row{display:flex;gap:12px;padding:0 1rem 0.5rem;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+.legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+
 /* PROGRESS */
 .progress-hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3060 100%);padding:1.5rem 1.25rem 2.75rem;position:relative;overflow:hidden;flex-shrink:0;}
 .progress-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;right:-20px;height:42px;background:var(--cream);border-radius:50% 50% 0 0;}
@@ -162,7 +196,7 @@ select{height:44px;}
 .ornament-divider{display:flex;align-items:center;gap:8px;margin:0.5rem 1rem 0;}
 .ornament-divider span{height:1px;flex:1;background:var(--border);}
 .ornament-divider i{color:var(--gold);font-size:12px;font-style:normal;}
-.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:14px;line-height:1.7;}
+
 /* SETTINGS */
 .settings-section-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin:1.25rem 0 0.4rem;}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);}
@@ -176,6 +210,10 @@ select{height:44px;}
 .erase-confirm{background:var(--danger-bg);border:1px solid #f0c0c0;border-radius:12px;padding:1rem;margin-top:0.75rem;}
 .erase-confirm p{font-size:13px;color:var(--danger);margin-bottom:0.75rem;line-height:1.5;}
 .feedback-msg{min-height:18px;margin-top:0.75rem;font-size:13px;}
+
+/* EXPORT */
+.export-box{background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem;}
+.export-box p{font-size:13px;color:var(--text2);margin-bottom:0.75rem;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -260,13 +298,20 @@ select{height:44px;}
         <label class="form-label">Passage text</label>
         <textarea id="newText" placeholder="Type the ritual text here exactly as it should be recited..."></textarea>
       </div>
-      <div class="section-label">Reference recording</div>
+
+      <div class="section-label">Reference recording &amp; voice mapping</div>
       <div class="rec-box">
-        <div class="rec-status" id="recStatus">Type the passage above, then record yourself reading it aloud verbatim. This becomes your personal reference.</div>
+        <div class="rec-status" id="recStatus">Record yourself reading the passage aloud. The app will map your pronunciation of each word to create your personal voice profile.</div>
+        <ul class="rec-steps">
+          <li>1. Type the full passage text above</li>
+          <li>2. Tap the mic and read it aloud clearly, word by word</li>
+          <li>3. Tap the mic again to stop — your voice map is built automatically</li>
+        </ul>
         <div class="mic-btn" id="refMicBtn" onclick="toggleRefRecord()">
           <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/></svg>
         </div>
         <div class="rec-timer" id="recTimer"></div>
+        <div class="mapping-status" id="mappingStatus"></div>
       </div>
       <div style="display:flex;gap:8px;margin-top:1.25rem;">
         <button class="btn" style="flex:1;" onclick="cancelEdit()">Cancel</button>
@@ -299,9 +344,10 @@ select{height:44px;}
         <div class="format-btn" onclick="setFormat('fillin',this)">Fill blanks</div>
         <div class="format-btn" onclick="setFormat('listen',this)">Listen</div>
         <div class="format-btn" onclick="setFormat('qa',this)">Q&amp;A</div>
+        <div class="format-btn" onclick="setFormat('listenrecite',this)">Listen &amp; Recite</div>
       </div>
     </div>
-    <div style="flex:1;overflow-y:auto;">
+    <div style="flex:1;overflow-y:auto;" id="practiceScrollArea">
       <div class="chunk-nav">
         <span id="chunkLabel">Chunk 1</span>
         <div style="display:flex;gap:6px;">
@@ -309,35 +355,71 @@ select{height:44px;}
           <button class="btn btn-sm" onclick="nextChunk()">Next &#8594;</button>
         </div>
       </div>
+
+      <!-- Text display -->
       <div class="chunk-box" id="chunkBox"><div class="chunk-text" id="chunkDisplay"></div></div>
       <div class="blind-box" id="blindBox" style="display:none;">
         <div class="blind-prompt">Blind Recite</div>
         <div class="blind-sub">Text is hidden. Listen to the reference if needed, then tap the mic and recite from memory. Text will be revealed with your results.</div>
       </div>
+
+      <!-- Play reference -->
+      <!-- Listen & Recite mode info box -->
+      <div class="listen-recite-box" id="listenReciteBox" style="display:none;">
+        <div class="blind-prompt">Listen &amp; Recite</div>
+        <div class="blind-sub" id="listenReciteStatus">Tap Play Chunk to hear the reference, then recite from memory when the mic opens automatically.</div>
+      </div>
+
       <div class="playback-box">
-        <div class="play-btn" onclick="playReference()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold-light)"><path d="M8 5v14l11-7z"/></svg>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+          <div class="play-btn" onclick="playChunk()" title="Play this chunk only">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--gold-light)"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="play-btn" onclick="playFull()" title="Play full passage" style="background:var(--gold-dark);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--gold-light)"><path d="M8 5v14l11-7z"/><line x1="19" y1="5" x2="19" y2="19" stroke="var(--gold-light)" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="play-btn" id="stopBtn" onclick="stopPlayback()" title="Stop" style="background:#8b2020;display:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold-light)"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+          </div>
         </div>
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--navy);">Play reference</div>
-          <div style="font-size:12px;color:var(--text3);">Hear your own recording</div>
+          <div style="font-size:12px;color:var(--text3);" id="playbackStatus">Play chunk &nbsp;|&nbsp; Play full &nbsp;|&nbsp; Stop</div>
         </div>
       </div>
-      <div class="attempt-box">
-        <div class="attempt-label">Your recital - tap mic and speak</div>
-        <div class="mic-btn" id="practiceMic" onclick="togglePracticeRecord()" style="margin:0 auto 0.5rem;">
-          <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/></svg>
+
+      <!-- MIC CONTROL — stays on until tapped again -->
+      <div class="mic-control">
+        <div class="mic-control-top">
+          <div class="mic-btn" id="practiceMic" onclick="togglePracticeRecord()" style="margin:0;flex-shrink:0;width:56px;height:56px;">
+            <svg class="mic-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 10z"/></svg>
+          </div>
+          <div class="mic-control-info">
+            <div class="mic-control-title" id="micControlTitle">Tap mic to begin reciting</div>
+            <div class="mic-control-sub" id="micControlSub">Mic stays on until you tap again to stop</div>
+          </div>
         </div>
-        <div class="attempt-transcript" id="attemptTranscript">Tap mic to begin reciting...</div>
+        <div class="mic-live-text" id="micLiveText" style="display:none;"></div>
       </div>
-      <div class="score-row" id="scoreRow" style="display:none;">
-        <div class="score-card cc"><div class="score-val" id="scoreCorrect">0</div><div class="score-lbl">correct</div></div>
-        <div class="score-card mc"><div class="score-val" id="scoreMissed">0</div><div class="score-lbl">missed</div></div>
-        <div class="score-card ac"><div class="score-val" id="scoreAccuracy">0%</div><div class="score-lbl">accuracy</div></div>
+
+      <!-- Results -->
+      <div id="scoreRow" style="display:none;">
+        <div class="tap-hint">Tap any word to mark it correct or wrong</div>
+        <div class="score-row">
+          <div class="score-card cc"><div class="score-val" id="scoreCorrect">0</div><div class="score-lbl">correct</div></div>
+          <div class="score-card mc"><div class="score-val" id="scoreMissed">0</div><div class="score-lbl">missed</div></div>
+          <div class="score-card ac"><div class="score-val" id="scoreAccuracy">0%</div><div class="score-lbl">accuracy</div></div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><div class="legend-dot" style="background:#d4edda;"></div>Correct</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fff3cd;"></div>Close</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f8d7da;"></div>Missed</div>
+          <div class="legend-item" style="font-style:italic;">Tap word to toggle</div>
+        </div>
       </div>
       <div class="action-row" id="practiceActions" style="display:none;">
         <button class="btn" style="flex:1;" onclick="tryAgain()">Try again</button>
-        <button class="btn btn-primary" style="flex:1;" onclick="nextChunk()">Next chunk</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="nextChunk()">Next chunk &#8594;</button>
       </div>
     </div>
   </div>
@@ -392,6 +474,10 @@ select{height:44px;}
       </div>
       <div class="settings-section-title">Data</div>
       <div class="settings-row">
+        <div><div class="settings-label">Export passages</div><div class="settings-sub">Save all passage text to a file as backup</div></div>
+        <button class="btn btn-sm" onclick="exportPassages()">Export</button>
+      </div>
+      <div class="settings-row">
         <div><div class="settings-label">Erase all data</div><div class="settings-sub">Permanently removes all passages, recordings and progress</div></div>
         <button class="btn btn-sm btn-danger" onclick="toggleInline('eraseAllForm')">Erase</button>
       </div>
@@ -428,38 +514,169 @@ select{height:44px;}
 </div>
 
 <script>
-const DEFAULT_PIN='1717';
-let st={pinEntry:'',passages:[],activePassage:null,chunkIdx:0,level:1,format:'recite',refRecording:null,mediaRecorder:null,recChunks:[],recInterval:null,recSec:0,recognition:null,practiceTranscript:'',progressMap:{},accessPin:DEFAULT_PIN,erasePin:null,editingId:null};
+// ═══════════════════════════════════════
+// MASONIC TERMINOLOGY DICTIONARY
+// Maps what Google often hears -> correct word
+// ═══════════════════════════════════════
+const MASONIC_MAP = {
+  'boas':'boaz','boase':'boaz','bows':'boaz','bowes':'boaz',
+  'jachin':'jachin','jakin':'jachin','jaken':'jachin','jaykin':'jachin',
+  'shibboleth':'shibboleth','shiboleth':'shibboleth','shib':'shibboleth',
+  'tubalcain':'tubal-cain','tubal':'tubal-cain','tubulcain':'tubal-cain',
+  'hiram':'hiram','hyram':'hiram',
+  'abiff':'abiff','abif':'abiff',
+  'fellowcraft':'fellowcraft','fellow craft':'fellowcraft',
+  'worshipful':'worshipful','worshipfull':'worshipful',
+  'brethren':'brethren','breathren':'brethren','brethen':'brethren',
+  'rectitude':'rectitude','rectitute':'rectitude',
+  'circumambulate':'circumambulate','circumambulation':'circumambulation',
+  'deacon':'deacon','deakon':'deacon',
+  'warden':'warden','wardon':'warden',
+  'almighty':'almighty','allmighty':'almighty',
+  'trowel':'trowel','trowell':'trowel',
+  'plumb':'plumb','plum':'plumb',
+  'ashlar':'ashlar','ashler':'ashlar',
+  'acacia':'acacia','akasia':'acacia',
+  'hoodwink':'hoodwink','hoodwinked':'hoodwinked',
+  'cabletow':'cable-tow','cabletoe':'cable-tow','cable tow':'cable-tow',
+};
 
-function load(){try{const p=localStorage.getItem('pm_passages');if(p)st.passages=JSON.parse(p);const pm=localStorage.getItem('pm_progress');if(pm)st.progressMap=JSON.parse(pm);const ap=localStorage.getItem('pm_apin');if(ap)st.accessPin=ap;const ep=localStorage.getItem('pm_epin');if(ep)st.erasePin=ep;const rc=localStorage.getItem('pm_recs');if(rc){const m=JSON.parse(rc);st.passages.forEach(p=>{if(m[p.id])p.refAudio=m[p.id];});}}catch(e){}}
-function persist(){try{localStorage.setItem('pm_passages',JSON.stringify(st.passages.map(p=>({...p,refAudio:undefined}))));localStorage.setItem('pm_progress',JSON.stringify(st.progressMap));localStorage.setItem('pm_apin',st.accessPin);if(st.erasePin)localStorage.setItem('pm_epin',st.erasePin);const m={};st.passages.forEach(p=>{if(p.refAudio)m[p.id]=p.refAudio;});localStorage.setItem('pm_recs',JSON.stringify(m));}catch(e){if(e.name==='QuotaExceededError')alert('Storage full. Please delete some passages.');}}
-function wipeAll(){localStorage.clear();st.passages=[];st.progressMap={};st.erasePin=null;st.accessPin=DEFAULT_PIN;}
+function applyMasonicMap(word) {
+  const lower = word.toLowerCase();
+  return MASONIC_MAP[lower] || word;
+}
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+const DEFAULT_PIN = '1717';
+let st = {
+  pinEntry: '',
+  passages: [],
+  activePassage: null,
+  chunkIdx: 0, level: 1, format: 'recite',
+  // Reference recording
+  refRecording: null,
+  refTranscript: [],      // Array of normalised words from reference recording
+  voiceMap: {},           // typed_word -> how user pronounced it (normalised)
+  mediaRecorder: null, recChunks: [],
+  recInterval: null, recSec: 0,
+  refRecognition: null,   // Speech recognition running during reference recording
+  refTranscriptRaw: '',   // Raw transcript from reference recording
+  // Practice
+  practiceRecognition: null,
+  practiceTranscript: '',
+  practiceActive: false,
+  restartTimer: null,
+  // Progress & settings
+  progressMap: {},
+  accessPin: DEFAULT_PIN,
+  erasePin: null,
+  editingId: null
+};
+
+// ═══════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════
+function load() {
+  try {
+    const p = localStorage.getItem('pm_passages'); if (p) st.passages = JSON.parse(p);
+    const pm = localStorage.getItem('pm_progress'); if (pm) st.progressMap = JSON.parse(pm);
+    const ap = localStorage.getItem('pm_apin'); if (ap) st.accessPin = ap;
+    const ep = localStorage.getItem('pm_epin'); if (ep) st.erasePin = ep;
+    const rc = localStorage.getItem('pm_recs');
+    if (rc) { const m = JSON.parse(rc); st.passages.forEach(p => { if (m[p.id]) { p.refAudio = m[p.id].audio; p.voiceMap = m[p.id].voiceMap || {}; p.refTranscript = m[p.id].refTranscript || []; p.chunkTimestamps = m[p.id].chunkTimestamps || []; p.totalDuration = m[p.id].totalDuration || 0; } }); }
+  } catch(e) { console.warn('Load error', e); }
+}
+function persist() {
+  try {
+    localStorage.setItem('pm_passages', JSON.stringify(st.passages.map(p => ({...p, refAudio: undefined, voiceMap: undefined, refTranscript: undefined}))));
+    localStorage.setItem('pm_progress', JSON.stringify(st.progressMap));
+    localStorage.setItem('pm_apin', st.accessPin);
+    if (st.erasePin) localStorage.setItem('pm_epin', st.erasePin);
+    const m = {};
+    st.passages.forEach(p => {
+      if (p.refAudio) m[p.id] = { audio: p.refAudio, voiceMap: p.voiceMap || {}, refTranscript: p.refTranscript || [], chunkTimestamps: p.chunkTimestamps || [], totalDuration: p.totalDuration || 0 };
+    });
+    localStorage.setItem('pm_recs', JSON.stringify(m));
+  } catch(e) {
+    if (e.name === 'QuotaExceededError') alert('Storage full. Please delete some passages to free up space.');
+  }
+}
+function wipeAll() { localStorage.clear(); st.passages = []; st.progressMap = {}; st.erasePin = null; st.accessPin = DEFAULT_PIN; }
 load();
 
-function pinPress(d){if(st.pinEntry.length>=4)return;st.pinEntry+=d;updateDots();if(st.pinEntry.length===4)setTimeout(checkPin,150);}
-function pinDel(){st.pinEntry=st.pinEntry.slice(0,-1);updateDots();}
-function updateDots(){for(let i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('filled',i<st.pinEntry.length);}
-function checkPin(){const e=st.pinEntry;st.pinEntry='';updateDots();const err=document.getElementById('pinErr');if(st.erasePin&&e===st.erasePin){wipeAll();err.className='pin-err success';err.textContent='All data erased.';return;}if(e===st.accessPin){document.getElementById('pinScreen').classList.remove('active');document.getElementById('mainScreen').classList.add('active');showTab('library');}else{err.className='pin-err error';err.textContent='Incorrect PIN. Try again.';}}
-function endSession(){stopAllMedia();document.getElementById('mainScreen').classList.remove('active');document.getElementById('pinScreen').classList.add('active');st.pinEntry='';updateDots();document.getElementById('pinErr').textContent='';}
-function stopAllMedia(){if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;}if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){try{st.mediaRecorder.stop();}catch(e){}}clearInterval(st.recInterval);}
+// ═══════════════════════════════════════
+// PIN
+// ═══════════════════════════════════════
+function pinPress(d) { if (st.pinEntry.length >= 4) return; st.pinEntry += d; updateDots(); if (st.pinEntry.length === 4) setTimeout(checkPin, 150); }
+function pinDel() { st.pinEntry = st.pinEntry.slice(0, -1); updateDots(); }
+function updateDots() { for (let i = 0; i < 4; i++) document.getElementById('d' + i).classList.toggle('filled', i < st.pinEntry.length); }
+function checkPin() {
+  const e = st.pinEntry; st.pinEntry = ''; updateDots();
+  const err = document.getElementById('pinErr');
+  if (st.erasePin && e === st.erasePin) { wipeAll(); err.className = 'pin-err success'; err.textContent = 'All data erased.'; return; }
+  if (e === st.accessPin) { document.getElementById('pinScreen').classList.remove('active'); document.getElementById('mainScreen').classList.add('active'); showTab('library'); }
+  else { err.className = 'pin-err error'; err.textContent = 'Incorrect PIN. Try again.'; }
+}
+function endSession() { stopAllMedia(); document.getElementById('mainScreen').classList.remove('active'); document.getElementById('pinScreen').classList.add('active'); st.pinEntry = ''; updateDots(); document.getElementById('pinErr').textContent = ''; }
+function stopAllMedia() {
+  stopPracticeRecording();
+  if (st.refRecognition) { try { st.refRecognition.stop(); } catch(e) {} st.refRecognition = null; }
+  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') { try { st.mediaRecorder.stop(); } catch(e) {} }
+  clearInterval(st.recInterval);
+  clearTimeout(st.restartTimer);
+}
 
-function showTab(name){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));const map={library:'tabLibrary',add:'tabAdd',practice:'tabPractice',progress:'tabProgress',settings:'tabSettings'};const el=document.getElementById(map[name]);if(el)el.classList.add('active');['library','progress','settings'].forEach(n=>{const btn=document.getElementById('nav-'+n);if(btn)btn.classList.toggle('active',n===name);});if(name==='library')renderLibrary();if(name==='progress')renderProgress();}
+// ═══════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  const map = { library: 'tabLibrary', add: 'tabAdd', practice: 'tabPractice', progress: 'tabProgress', settings: 'tabSettings' };
+  const el = document.getElementById(map[name]); if (el) el.classList.add('active');
+  ['library','progress','settings'].forEach(n => { const btn = document.getElementById('nav-' + n); if (btn) btn.classList.toggle('active', n === name); });
+  if (name === 'library') renderLibrary();
+  if (name === 'progress') renderProgress();
+  if (name !== 'practice') { stopPracticeRecording(); stopPlayback(); }
+}
+function showAddTab(id) {
+  st.editingId = id || null;
+  const p = id ? st.passages.find(x => x.id === id) : null;
+  document.getElementById('addTabTitle').textContent = p ? 'Edit Passage' : 'New Passage';
+  document.getElementById('editingId').value = id || '';
+  document.getElementById('newTitle').value = p ? p.title : '';
+  document.getElementById('newFormat').value = p ? p.format : 'charge';
+  document.getElementById('newText').value = p ? p.text : '';
+  st.refRecording = p ? p.refAudio : null;
+  st.refTranscriptRaw = '';
+  document.getElementById('recStatus').textContent = p && p.refAudio
+    ? '&#10003; Recording &amp; voice map exist. Tap mic to re-record if needed.'
+    : 'Record yourself reading the passage aloud. The app will map your pronunciation of each word to create your personal voice profile.';
+  document.getElementById('recTimer').textContent = '';
+  document.getElementById('mappingStatus').textContent = p && p.voiceMap ? 'Voice map: ' + Object.keys(p.voiceMap || {}).length + ' words mapped.' : '';
+  document.getElementById('refMicBtn').classList.remove('listening');
+  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') { try { st.mediaRecorder.stop(); } catch(e) {} }
+  clearInterval(st.recInterval); st.recSec = 0;
+  showTab('add');
+}
+function cancelEdit() { st.editingId = null; showTab('library'); }
 
-function showAddTab(id){st.editingId=id||null;const p=id?st.passages.find(x=>x.id===id):null;document.getElementById('addTabTitle').textContent=p?'Edit Passage':'New Passage';document.getElementById('editingId').value=id||'';document.getElementById('newTitle').value=p?p.title:'';document.getElementById('newFormat').value=p?p.format:'charge';document.getElementById('newText').value=p?p.text:'';st.refRecording=p?p.refAudio:null;document.getElementById('recStatus').textContent=p&&p.refAudio?'Recording exists. Tap mic to re-record if needed.':'Type the passage above, then record yourself reading it aloud verbatim.';document.getElementById('recTimer').textContent='';document.getElementById('refMicBtn').classList.remove('listening');if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){try{st.mediaRecorder.stop();}catch(e){}}clearInterval(st.recInterval);st.recSec=0;showTab('add');}
-function cancelEdit(){st.editingId=null;showTab('library');}
-
-function filterPassages(type,el){document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderLibrary(type);}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function renderLibrary(filter='all'){
-  const list=document.getElementById('passageList');
-  const data=filter==='all'?st.passages:st.passages.filter(p=>p.format===filter);
-  if(!data.length){list.innerHTML='<div class="empty-state">No passages yet.<br>Tap <strong>+ Add</strong> to begin.</div>';return;}
-  list.innerHTML=data.map(p=>{
-    const prog=st.progressMap[p.id];const pct=prog?Math.round(prog.accuracy):0;
-    const bCls=pct>=80?'badge-success':pct>=40?'badge-warn':'badge-gray';
-    const bTxt=pct>=80?'Strong':pct>=40?'Progressing':'Not started';
-    const recIcon=p.refAudio?'<span style="color:var(--success);font-size:11px;">&#10003; Recorded</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No recording</span>';
+// ═══════════════════════════════════════
+// LIBRARY
+// ═══════════════════════════════════════
+function filterPassages(type, el) { document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderLibrary(type); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function renderLibrary(filter = 'all') {
+  const list = document.getElementById('passageList');
+  const data = filter === 'all' ? st.passages : st.passages.filter(p => p.format === filter);
+  if (!data.length) { list.innerHTML = '<div class="empty-state">No passages yet.<br>Tap <strong>+ Add</strong> to begin.</div>'; return; }
+  list.innerHTML = data.map(p => {
+    const prog = st.progressMap[p.id]; const pct = prog ? Math.round(prog.accuracy) : 0;
+    const bCls = pct >= 80 ? 'badge-success' : pct >= 40 ? 'badge-warn' : 'badge-gray';
+    const bTxt = pct >= 80 ? 'Strong' : pct >= 40 ? 'Progressing' : 'Not started';
+    const mapped = p.voiceMap ? Object.keys(p.voiceMap).length : 0;
+    const recIcon = p.refAudio ? `<span style="color:var(--success);font-size:11px;">&#10003; Recorded (${mapped} words mapped)</span>` : '<span style="color:var(--warn);font-size:11px;">&#9888; No recording</span>';
     return `<div class="passage-card" id="pc-${p.id}">
       <div class="passage-card-accent"></div>
       <div class="passage-card-body">
@@ -468,7 +685,7 @@ function renderLibrary(filter='all'){
           <div class="passage-meta"><span class="badge badge-navy">${p.format}</span><span class="badge ${bCls}">${bTxt}</span>${recIcon}</div>
         </div>
         <div class="passage-actions">
-          <button class="btn btn-sm" onclick="showAddTab('${p.id}')" title="Edit" style="padding:6px 8px;">
+          <button class="btn btn-sm" onclick="showAddTab('${p.id}')" style="padding:6px 8px;" title="Edit">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           </button>
           <button class="btn btn-sm btn-primary" onclick="openPractice('${p.id}')">Practice</button>
@@ -487,164 +704,669 @@ function renderLibrary(filter='all'){
     </div>`;
   }).join('');
 }
+function toggleDelete(id) { document.getElementById('dz-' + id).classList.toggle('open'); }
+function confirmDelete(id) { st.passages = st.passages.filter(p => p.id !== id); delete st.progressMap[id]; persist(); renderLibrary(); }
 
-function toggleDelete(id){document.getElementById('dz-'+id).classList.toggle('open');}
-function confirmDelete(id){st.passages=st.passages.filter(p=>p.id!==id);delete st.progressMap[id];persist();renderLibrary();}
+// ═══════════════════════════════════════
+// REFERENCE RECORDING + VOICE MAPPING
+// Records audio AND runs speech recognition simultaneously
+// Maps typed words to how the user actually pronounced them
+// ═══════════════════════════════════════
+function toggleRefRecord() {
+  const btn = document.getElementById('refMicBtn');
+  const status = document.getElementById('recStatus');
+  const timer = document.getElementById('recTimer');
+  const mapStatus = document.getElementById('mappingStatus');
+  const text = document.getElementById('newText').value.trim();
+  if (!text) { alert('Please type the passage text first.'); return; }
 
-function toggleRefRecord(){
-  const btn=document.getElementById('refMicBtn'),status=document.getElementById('recStatus'),timer=document.getElementById('recTimer');
-  const text=document.getElementById('newText').value.trim();
-  if(!text){alert('Please type the passage text first.');return;}
-  if(st.mediaRecorder&&st.mediaRecorder.state==='recording'){st.mediaRecorder.stop();btn.classList.remove('listening');clearInterval(st.recInterval);status.textContent='Processing...';return;}
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){alert('Microphone not available. Please use Chrome on Android or Safari on iOS.');return;}
-  navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(stream=>{
-    st.recChunks=[];
-    let mimeType='';
-    ['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].forEach(t=>{if(!mimeType&&MediaRecorder.isTypeSupported(t))mimeType=t;});
-    try{st.mediaRecorder=new MediaRecorder(stream,mimeType?{mimeType}:{});}catch(e){st.mediaRecorder=new MediaRecorder(stream);}
-    st.mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size>0)st.recChunks.push(e.data);};
-    st.mediaRecorder.onstop=()=>{
-      const blob=new Blob(st.recChunks,{type:mimeType||'audio/webm'});
-      const reader=new FileReader();
-      reader.onload=()=>{st.refRecording=reader.result;status.textContent='Recording saved. Tap mic to re-record if needed.';timer.textContent='';};
-      reader.onerror=()=>{status.textContent='Error saving. Please try again.';};
+  // STOP
+  if (st.mediaRecorder && st.mediaRecorder.state === 'recording') {
+    st.mediaRecorder.stop();
+    if (st.refRecognition) { try { st.refRecognition.stop(); } catch(e) {} }
+    btn.classList.remove('listening');
+    clearInterval(st.recInterval);
+    status.textContent = 'Processing recording and building voice map...';
+    return;
+  }
+
+  // START
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { alert('Microphone not available. Please use Chrome on Android or Safari on iOS.'); return; }
+
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
+    st.recChunks = [];
+    st.refTranscriptRaw = '';
+
+    // Audio recording
+    let mimeType = '';
+    ['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].forEach(t => { if (!mimeType && MediaRecorder.isTypeSupported(t)) mimeType = t; });
+    try { st.mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : {}); } catch(e) { st.mediaRecorder = new MediaRecorder(stream); }
+    st.mediaRecorder.ondataavailable = e => { if (e.data && e.data.size > 0) st.recChunks.push(e.data); };
+    st.mediaRecorder.onstop = () => {
+      const blob = new Blob(st.recChunks, { type: mimeType || 'audio/webm' });
+      // Capture total duration from timer
+      st.refDuration = st.recSec;
+      const reader = new FileReader();
+      reader.onload = () => {
+        st.refRecording = reader.result;
+        // Build voice map from transcript vs typed text
+        const voiceMap = buildVoiceMap(text, st.refTranscriptRaw, mapStatus);
+        // Build chunk timestamps from word timestamps
+        buildChunkTimestamps(text, st.refWordTimestamps || [], st.recSec);
+        status.textContent = '&#10003; Recording saved, voice map and chunk timestamps built.';
+        timer.textContent = '';
+      };
       reader.readAsDataURL(blob);
-      stream.getTracks().forEach(t=>t.stop());
+      stream.getTracks().forEach(t => t.stop());
     };
-    st.mediaRecorder.start(250);btn.classList.add('listening');st.recSec=0;timer.textContent='0s';
-    st.recInterval=setInterval(()=>{st.recSec++;timer.textContent=st.recSec+'s';},1000);
-    status.textContent='Recording... read the passage aloud clearly, then tap to stop.';
-  }).catch(err=>{
-    if(err.name==='NotAllowedError')alert('Microphone permission denied. Please allow microphone access in your browser settings.');
-    else alert('Could not access microphone: '+err.message);
+    st.mediaRecorder.start(250);
+
+    // Simultaneous speech recognition for voice mapping
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SR) {
+      const rec = new SR();
+      rec.continuous = true; rec.interimResults = false; rec.lang = 'en-US';
+      st.refWordTimestamps = [];
+      let refStartTime = Date.now();
+      rec.onresult = e => {
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) {
+            const words = e.results[i][0].transcript.trim().split(/\s+/);
+            const now = (Date.now() - refStartTime) / 1000;
+            const segDuration = words.length * 0.4; // estimate ~0.4s per word
+            words.forEach((w, wi) => {
+              st.refWordTimestamps.push({
+                word: w.toLowerCase().replace(/[^a-z0-9']/g,''),
+                time: now - segDuration + wi * 0.4
+              });
+            });
+            st.refTranscriptRaw += e.results[i][0].transcript + ' ';
+          }
+        }
+        mapStatus.textContent = 'Listening and mapping: ' + st.refTranscriptRaw.trim().split(/\s+/).length + ' words captured...';
+      };
+      rec.onerror = () => {};
+      rec.onend = () => {};
+      try { rec.start(); st.refRecognition = rec; } catch(e) {}
+    }
+
+    btn.classList.add('listening');
+    st.recSec = 0; timer.textContent = '0s';
+    st.recInterval = setInterval(() => { st.recSec++; timer.textContent = st.recSec + 's'; }, 1000);
+    status.textContent = 'Recording... read the passage aloud clearly at a steady pace, then tap to stop.';
+    mapStatus.textContent = 'Building voice map...';
+  }).catch(err => {
+    if (err.name === 'NotAllowedError') alert('Microphone permission denied. Please allow microphone access in your browser settings.');
+    else alert('Could not access microphone: ' + err.message);
   });
 }
 
-function savePassage(){
-  const title=document.getElementById('newTitle').value.trim();
-  const text=document.getElementById('newText').value.trim();
-  const format=document.getElementById('newFormat').value;
-  const editId=document.getElementById('editingId').value;
-  if(!title){alert('Please enter a title.');return;}
-  if(!text){alert('Please enter the passage text.');return;}
-  if(!st.refRecording){alert('Please record your reference reading before saving.\n\nTap the microphone button and read the passage aloud.');return;}
-  if(editId){const idx=st.passages.findIndex(p=>p.id===editId);if(idx!==-1)st.passages[idx]={...st.passages[idx],title,text,format,refAudio:st.refRecording};}
-  else{const id='p_'+Date.now();st.passages.push({id,title,text,format,refAudio:st.refRecording,created:Date.now()});}
-  persist();st.editingId=null;showTab('library');
+// ═══════════════════════════════════════
+// VOICE MAP BUILDER
+// Aligns typed words to spoken words using sequence alignment
+// ═══════════════════════════════════════
+function normWord(w) { return w.toLowerCase().replace(/[^a-z0-9']/g, ''); }
+
+function buildVoiceMap(typedText, spokenText, statusEl) {
+  const typedWords = typedText.split(/\s+/).map(normWord).filter(Boolean);
+  const spokenRaw = spokenText.trim().split(/\s+/).filter(Boolean);
+  const spokenWords = spokenRaw.map(w => applyMasonicMap(normWord(w)));
+
+  const voiceMap = {};
+  // Simple greedy alignment: for each typed word find best spoken match in sequence
+  let sIdx = 0;
+  for (let t = 0; t < typedWords.length && sIdx < spokenWords.length; t++) {
+    const tw = typedWords[t];
+    // Look ahead up to 3 spoken words for best match
+    let bestScore = 0, bestOffset = 0;
+    for (let offset = 0; offset < Math.min(4, spokenWords.length - sIdx); offset++) {
+      const score = similarity(tw, spokenWords[sIdx + offset]);
+      if (score > bestScore) { bestScore = score; bestOffset = offset; }
+    }
+    if (bestScore >= 0.45) {
+      voiceMap[tw] = spokenWords[sIdx + bestOffset];
+      sIdx += bestOffset + 1;
+    }
+  }
+
+  st.voiceMap = voiceMap;
+  const mapped = Object.keys(voiceMap).length;
+  const total = typedWords.length;
+  if (statusEl) statusEl.textContent = `Voice map built: ${mapped} of ${total} words mapped (${Math.round(mapped/total*100)}%).`;
+  return voiceMap;
 }
 
-function getSentences(t){return t.match(/[^.!?]+[.!?]*/g)?.map(s=>s.trim()).filter(Boolean)||[t];}
-function getChunks(){if(!st.activePassage)return[];const sents=getSentences(st.activePassage.text);const size=st.level===1?1:st.level===2?2:st.level===3?4:sents.length;const out=[];for(let i=0;i<sents.length;i+=size)out.push(sents.slice(i,i+size).join(' '));return out;}
-
-function openPractice(id){const p=st.passages.find(p=>p.id===id);if(!p)return;if(!p.refAudio){alert('No reference recording found.\n\nPlease edit this passage and record your reference first.');return;}st.activePassage=p;st.chunkIdx=0;st.level=1;st.format='recite';document.getElementById('practiceTitle').textContent=p.title;document.getElementById('practiceSub').textContent=p.format;document.querySelectorAll('.level-btn').forEach((b,i)=>b.classList.toggle('active',i===0));document.querySelectorAll('.format-btn').forEach((b,i)=>b.classList.toggle('active',i===0));showTab('practice');renderChunk();}
-
-function renderChunk(){
-  const chunks=getChunks(),chunk=chunks[st.chunkIdx]||'';
-  document.getElementById('chunkLabel').textContent='Chunk '+(st.chunkIdx+1)+' of '+chunks.length;
-  const words=chunk.split(/\s+/).filter(Boolean);
-  const chunkBox=document.getElementById('chunkBox'),blindBox=document.getElementById('blindBox');
-  if(st.format==='blind'){chunkBox.style.display='none';blindBox.style.display='block';}
-  else{
-    chunkBox.style.display='block';blindBox.style.display='none';
-    let html='';
-    if(st.format==='fillin'){html=words.map((w,i)=>i%3===2?`<span class="word-token hidden">${esc(w)}</span> `:`<span class="word-token">${esc(w)}</span> `).join('');}
-    else if(st.format==='listen'){html='<em style="color:var(--text3);">Listen to the reference, then recite when ready.</em>';}
-    else if(st.format==='qa'){const sents=getSentences(chunk);html=sents.map((s,i)=>i%2===0?`<div style="color:var(--text3);font-size:15px;margin-bottom:6px;"><strong>Q:</strong> ${esc(s)}</div>`:`<div style="margin-bottom:10px;"><strong>A:</strong> ${esc(s)}</div>`).join('');}
-    else{html=words.map(w=>`<span class="word-token">${esc(w)}</span> `).join('');}
-    document.getElementById('chunkDisplay').innerHTML=html;
+// ═══════════════════════════════════════
+// CHUNK TIMESTAMP BUILDER
+// Maps each chunk's start/end to recording timestamps
+// ═══════════════════════════════════════
+function buildChunkTimestamps(typedText, wordTimestamps, totalDuration) {
+  // Get sentences and build chunks at level 1 (one sentence) to map timestamps
+  const sentences = typedText.match(/[^.!?]+[.!?]*/g)?.map(s=>s.trim()).filter(Boolean) || [typedText];
+  const typedWords = typedText.split(/\s+/).map(w=>w.toLowerCase().replace(/[^a-z0-9']/g,'')).filter(Boolean);
+  
+  // Map word index to timestamp
+  const wordTimeMap = {};
+  if (wordTimestamps.length > 0) {
+    let wIdx = 0;
+    wordTimestamps.forEach(wt => {
+      // Find matching typed word near current position
+      for (let i = wIdx; i < Math.min(wIdx + 5, typedWords.length); i++) {
+        if (similarity(typedWords[i], wt.word) >= 0.6) { wordTimeMap[i] = wt.time; wIdx = i + 1; break; }
+      }
+    });
   }
-  document.getElementById('scoreRow').style.display='none';
-  document.getElementById('practiceActions').style.display='none';
-  document.getElementById('attemptTranscript').textContent='Tap mic to begin reciting...';
+  
+  // Build timestamps per sentence (level 1 chunk)
+  const sentenceTimestamps = [];
+  let wordPos = 0;
+  sentences.forEach((sent, si) => {
+    const sentWords = sent.split(/\s+/).filter(Boolean).length;
+    const startWordIdx = wordPos;
+    const endWordIdx = wordPos + sentWords - 1;
+    
+    let startTime, endTime;
+    if (wordTimeMap[startWordIdx] !== undefined) {
+      startTime = wordTimeMap[startWordIdx];
+    } else {
+      // Proportional estimate
+      startTime = (wordPos / typedWords.length) * totalDuration;
+    }
+    if (wordTimeMap[endWordIdx] !== undefined) {
+      endTime = wordTimeMap[endWordIdx] + 0.6;
+    } else {
+      endTime = ((wordPos + sentWords) / typedWords.length) * totalDuration;
+    }
+    
+    sentenceTimestamps.push({ start: Math.max(0, startTime - 0.2), end: endTime + 0.3 });
+    wordPos += sentWords;
+  });
+  
+  st.chunkTimestamps = sentenceTimestamps;
+  st.refDuration = totalDuration;
+}
+
+// ═══════════════════════════════════════
+// SAVE PASSAGE
+// ═══════════════════════════════════════
+function savePassage() {
+  const title = document.getElementById('newTitle').value.trim();
+  const text = document.getElementById('newText').value.trim();
+  const format = document.getElementById('newFormat').value;
+  const editId = document.getElementById('editingId').value;
+  if (!title) { alert('Please enter a title.'); return; }
+  if (!text) { alert('Please enter the passage text.'); return; }
+  if (!st.refRecording) { alert('Please record your reference reading before saving.\n\nTap the microphone button and read the passage aloud.'); return; }
+  const entry = { title, text, format, refAudio: st.refRecording, voiceMap: st.voiceMap || {}, refTranscript: Object.keys(st.voiceMap || {}), chunkTimestamps: st.chunkTimestamps || [], totalDuration: st.refDuration || 0, created: Date.now() };
+  if (editId) {
+    const idx = st.passages.findIndex(p => p.id === editId);
+    if (idx !== -1) st.passages[idx] = { ...st.passages[idx], ...entry };
+  } else {
+    st.passages.push({ id: 'p_' + Date.now(), ...entry });
+  }
+  persist(); st.editingId = null; showTab('library');
+}
+
+// ═══════════════════════════════════════
+// PRACTICE
+// ═══════════════════════════════════════
+function getSentences(t) { return t.match(/[^.!?]+[.!?]*/g)?.map(s => s.trim()).filter(Boolean) || [t]; }
+function getChunks() {
+  if (!st.activePassage) return [];
+  const sents = getSentences(st.activePassage.text);
+  const size = st.level === 1 ? 1 : st.level === 2 ? 2 : st.level === 3 ? 4 : sents.length;
+  const out = [];
+  for (let i = 0; i < sents.length; i += size) out.push(sents.slice(i, i + size).join(' '));
+  return out;
+}
+function openPractice(id) {
+  const p = st.passages.find(p => p.id === id);
+  if (!p) return;
+  if (!p.refAudio) { alert('No reference recording found.\n\nPlease edit this passage and record your reference first.'); return; }
+  st.activePassage = p; st.chunkIdx = 0; st.level = 1; st.format = 'recite';
+  document.getElementById('practiceTitle').textContent = p.title;
+  document.getElementById('practiceSub').textContent = p.format;
+  document.querySelectorAll('.level-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.querySelectorAll('.format-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  showTab('practice'); renderChunk();
+}
+
+function renderChunk() {
+  const chunks = getChunks(), chunk = chunks[st.chunkIdx] || '';
+  document.getElementById('chunkLabel').textContent = 'Chunk ' + (st.chunkIdx + 1) + ' of ' + chunks.length;
+  const words = chunk.split(/\s+/).filter(Boolean);
+  const chunkBox = document.getElementById('chunkBox');
+  const blindBox = document.getElementById('blindBox');
+  const listenReciteBox = document.getElementById('listenReciteBox');
+  if (st.format === 'blind') {
+    chunkBox.style.display = 'none'; blindBox.style.display = 'block'; listenReciteBox.style.display = 'none';
+  } else if (st.format === 'listenrecite') {
+    chunkBox.style.display = 'none'; blindBox.style.display = 'none'; listenReciteBox.style.display = 'block';
+    document.getElementById('listenReciteStatus').textContent = 'Tap Play Chunk to hear the reference, then recite from memory when the mic opens automatically.';
+  } else {
+    chunkBox.style.display = 'block'; blindBox.style.display = 'none'; listenReciteBox.style.display = 'none';
+    let html = '';
+    if (st.format === 'fillin') {
+      html = words.map((w, i) => i % 3 === 2 ? `<span class="word-token hidden">${esc(w)}</span> ` : `<span class="word-token pending" onclick="toggleWordManual(this)">${esc(w)}</span> `).join('');
+    } else if (st.format === 'listen') {
+      html = '<em style="color:var(--text3);">Listen to the reference, then recite when ready.</em>';
+    } else if (st.format === 'qa') {
+      const sents = getSentences(chunk);
+      html = sents.map((s, i) => i % 2 === 0 ? `<div style="color:var(--text3);font-size:15px;margin-bottom:6px;"><strong>Q:</strong> ${esc(s)}</div>` : `<div style="margin-bottom:10px;"><strong>A:</strong> ${esc(s)}</div>`).join('');
+    } else {
+      html = words.map(w => `<span class="word-token pending" onclick="toggleWordManual(this)">${esc(w)}</span> `).join('');
+    }
+    document.getElementById('chunkDisplay').innerHTML = html;
+  }
+  document.getElementById('scoreRow').style.display = 'none';
+  document.getElementById('practiceActions').style.display = 'none';
+  resetMicUI();
+  st.practiceTranscript = '';
+  stopPracticeRecording();
+}
+
+function resetMicUI() {
+  document.getElementById('micControlTitle').textContent = 'Tap mic to begin reciting';
+  document.getElementById('micControlSub').textContent = 'Mic stays on until you tap again to stop';
+  document.getElementById('micLiveText').style.display = 'none';
+  document.getElementById('micLiveText').textContent = '';
   document.getElementById('practiceMic').classList.remove('listening');
-  st.practiceTranscript='';
-  if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;}
 }
 
-function setLevel(lvl,el){st.level=lvl;st.chunkIdx=0;document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderChunk();}
-function setFormat(fmt,el){st.format=fmt;document.querySelectorAll('.format-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderChunk();}
-function playReference(){if(!st.activePassage?.refAudio){alert('No reference recording found.');return;}try{new Audio(st.activePassage.refAudio).play();}catch(e){alert('Could not play audio: '+e.message);}}
+function setLevel(lvl, el) { st.level = lvl; st.chunkIdx = 0; document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderChunk(); }
+function setFormat(fmt, el) { st.format = fmt; document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderChunk(); }
 
-function togglePracticeRecord(){
-  const btn=document.getElementById('practiceMic'),tr=document.getElementById('attemptTranscript');
-  if(st.recognition){try{st.recognition.stop();}catch(e){}st.recognition=null;btn.classList.remove('listening');return;}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Speech recognition requires Chrome on Android or Safari on iOS (14.5+).');return;}
-  const rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang='en-US';st.practiceTranscript='';
-  rec.onresult=e=>{let interim='',final='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}st.practiceTranscript+=final;tr.textContent=(st.practiceTranscript+interim).trim()||'Listening...';};
-  rec.onend=()=>{btn.classList.remove('listening');st.recognition=null;if(st.practiceTranscript.trim())checkAttempt();else tr.textContent='Nothing heard. Tap mic and try again.';};
-  rec.onerror=e=>{btn.classList.remove('listening');st.recognition=null;if(e.error==='not-allowed')alert('Microphone access denied.');else tr.textContent='Error: '+e.error+'. Try again.';};
-  try{rec.start();st.recognition=rec;btn.classList.add('listening');tr.textContent='Listening...';}catch(e){alert('Could not start speech recognition: '+e.message);}
-}
+// ═══════════════════════════════════════
+// AUDIO PLAYBACK WITH CHUNK SLICING
+// ═══════════════════════════════════════
+let currentAudio = null;
+let playbackProgressInterval = null;
 
-// Fuzzy matching using Levenshtein distance
-function similarity(a,b){if(a===b)return 1;if(!a||!b)return 0;const la=a.length,lb=b.length;const dp=Array.from({length:la+1},(_,i)=>Array.from({length:lb+1},(_,j)=>i===0?j:j===0?i:0));for(let i=1;i<=la;i++)for(let j=1;j<=lb;j++)dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);return 1-dp[la][lb]/Math.max(la,lb);}
-function norm(w){return w.toLowerCase().replace(/[^a-z0-9']/g,'');}
-const MATCH=0.72,CLOSE=0.5;
-
-function checkAttempt(){
-  const chunks=getChunks(),chunk=chunks[st.chunkIdx]||'';
-  // Blind mode: reveal text before scoring
-  if(st.format==='blind'){
-    const words=chunk.split(/\s+/).filter(Boolean);
-    document.getElementById('chunkBox').style.display='block';
-    document.getElementById('blindBox').style.display='none';
-    document.getElementById('chunkDisplay').innerHTML=words.map(w=>`<span class="word-token">${esc(w)}</span> `).join('');
+function stopPlayback() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
   }
-  const refWords=chunk.split(/\s+/).map(norm).filter(Boolean);
-  const spokenWords=st.practiceTranscript.trim().split(/\s+/).map(norm).filter(Boolean);
-  const els=document.querySelectorAll('#chunkDisplay .word-token');
-  const used=new Array(spokenWords.length).fill(false);
-  let correct=0,close=0,wrong=0;
-  refWords.forEach((rw,ri)=>{
-    const el=els[ri];if(!el)return;
-    let mi=spokenWords.findIndex((sw,si)=>!used[si]&&sw===rw);
-    if(mi!==-1){used[mi]=true;el.className='word-token correct';correct++;return;}
-    let bestScore=0,bestIdx=-1;
-    spokenWords.forEach((sw,si)=>{if(!used[si]){const s=similarity(rw,sw);if(s>bestScore){bestScore=s;bestIdx=si;}}});
-    if(bestScore>=MATCH){used[bestIdx]=true;el.className='word-token correct';correct++;}
-    else if(bestScore>=CLOSE){used[bestIdx]=true;el.className='word-token close';close++;}
-    else{el.className='word-token wrong';wrong++;}
+  clearInterval(playbackProgressInterval);
+  document.getElementById('stopBtn').style.display = 'none';
+  document.getElementById('playbackStatus').textContent = 'Play chunk | Play full | Stop';
+}
+
+function playFull() {
+  stopPlayback();
+  if (!st.activePassage?.refAudio) { alert('No reference recording found.'); return; }
+  try {
+    const audio = new Audio(st.activePassage.refAudio);
+    currentAudio = audio;
+    document.getElementById('stopBtn').style.display = 'flex';
+    document.getElementById('playbackStatus').textContent = 'Playing full passage...';
+    audio.play();
+    audio.onended = () => { stopPlayback(); };
+    audio.onerror = () => { stopPlayback(); alert('Could not play audio.'); };
+  } catch(e) { alert('Could not play audio: ' + e.message); }
+}
+
+function playChunk() {
+  stopPlayback();
+  if (!st.activePassage?.refAudio) { alert('No reference recording found.'); return; }
+  
+  const chunks = getChunks();
+  const chunk = chunks[st.chunkIdx] || '';
+  const timestamps = st.activePassage.chunkTimestamps || [];
+  
+  // Get start and end time for this chunk
+  let startTime = 0, endTime = null;
+  
+  if (timestamps.length > 0) {
+    // Use recorded timestamps
+    const tsEntry = timestamps[st.chunkIdx];
+    if (tsEntry) {
+      startTime = tsEntry.start || 0;
+      endTime = tsEntry.end || null;
+    } else {
+      // Estimate from proportional word count
+      const result = estimateChunkTimes(chunks, st.chunkIdx, st.activePassage.totalDuration || 0);
+      startTime = result.start;
+      endTime = result.end;
+    }
+  } else if (st.activePassage.totalDuration) {
+    // Estimate proportionally from word counts
+    const result = estimateChunkTimes(chunks, st.chunkIdx, st.activePassage.totalDuration);
+    startTime = result.start;
+    endTime = result.end;
+  }
+  
+  try {
+    const audio = new Audio(st.activePassage.refAudio);
+    currentAudio = audio;
+    document.getElementById('stopBtn').style.display = 'flex';
+    
+    audio.addEventListener('loadedmetadata', () => {
+      const duration = endTime ? endTime - startTime : audio.duration - startTime;
+      document.getElementById('playbackStatus').textContent = 
+        'Playing chunk ' + (st.chunkIdx + 1) + ' (' + Math.round(duration) + 's)...';
+      audio.currentTime = startTime;
+      audio.play();
+      
+      // Stop at end time
+      if (endTime) {
+        const checkInterval = setInterval(() => {
+          if (!currentAudio || audio.paused) { clearInterval(checkInterval); stopPlayback(); return; }
+          if (audio.currentTime >= endTime) { clearInterval(checkInterval); stopPlayback(); }
+        }, 100);
+      }
+    });
+    
+    audio.onerror = () => { stopPlayback(); };
+    audio.onended = () => {
+      stopPlayback();
+      // Listen & Recite: auto-start mic after chunk finishes playing
+      if (st.format === 'listenrecite' && !st.practiceActive) {
+        const statusEl = document.getElementById('listenReciteStatus');
+        statusEl.textContent = 'Now recite from memory — mic is opening...';
+        setTimeout(() => {
+          if (st.format === 'listenrecite') {
+            statusEl.textContent = 'Reciting... tap mic to stop when done.';
+            startPracticeRecording();
+          }
+        }, 800);
+      }
+    };
+  } catch(e) { alert('Could not play audio: ' + e.message); }
+}
+
+function estimateChunkTimes(chunks, chunkIdx, totalDuration) {
+  if (!totalDuration) return { start: 0, end: null };
+  // Count total words and words before this chunk
+  const totalWords = chunks.reduce((sum, c) => sum + c.split(/\s+/).filter(Boolean).length, 0);
+  let wordsBefore = 0;
+  for (let i = 0; i < chunkIdx; i++) wordsBefore += chunks[i].split(/\s+/).filter(Boolean).length;
+  const chunkWords = chunks[chunkIdx] ? chunks[chunkIdx].split(/\s+/).filter(Boolean).length : 0;
+  const start = totalDuration > 0 ? (wordsBefore / totalWords) * totalDuration : 0;
+  const end = totalDuration > 0 ? ((wordsBefore + chunkWords) / totalWords) * totalDuration : null;
+  // Add small buffer
+  return { start: Math.max(0, start - 0.3), end: end ? end + 0.5 : null };
+}
+
+// ═══════════════════════════════════════
+// CONTINUOUS PRACTICE RECORDING
+// Stays on until manually stopped
+// Auto-restarts if engine times out
+// ═══════════════════════════════════════
+function togglePracticeRecord() {
+  if (st.practiceActive) {
+    stopPracticeRecording();
+    if (st.practiceTranscript.trim()) checkAttempt();
+    else { document.getElementById('micControlTitle').textContent = 'Nothing heard. Tap mic to try again.'; }
+  } else {
+    startPracticeRecording();
+  }
+}
+
+function startPracticeRecording() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Speech recognition requires Chrome on Android or Safari on iOS (14.5+).'); return; }
+
+  st.practiceActive = true;
+  const btn = document.getElementById('practiceMic');
+  const liveText = document.getElementById('micLiveText');
+  btn.classList.add('listening');
+  liveText.style.display = 'block';
+  liveText.textContent = 'Listening...';
+  document.getElementById('micControlTitle').textContent = 'Listening — tap mic to stop and check';
+  document.getElementById('micControlSub').textContent = 'Speak clearly. Mic stays on.';
+
+  const rec = new SR();
+  rec.continuous = true;
+  rec.interimResults = true;
+  rec.lang = 'en-US';
+  rec.maxAlternatives = 1;
+
+  rec.onresult = e => {
+    let interim = '', final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) final += e.results[i][0].transcript + ' ';
+      else interim += e.results[i][0].transcript;
+    }
+    st.practiceTranscript += final;
+    liveText.textContent = (st.practiceTranscript + interim).trim() || 'Listening...';
+  };
+
+  rec.onend = () => {
+    // If still supposed to be active — restart automatically (handles engine timeouts)
+    if (st.practiceActive) {
+      clearTimeout(st.restartTimer);
+      st.restartTimer = setTimeout(() => {
+        if (st.practiceActive) {
+          try { rec.start(); } catch(e) { startPracticeRecording(); }
+        }
+      }, 300);
+    }
+  };
+
+  rec.onerror = e => {
+    if (e.error === 'not-allowed') { stopPracticeRecording(); alert('Microphone access denied.'); }
+    else if (e.error === 'no-speech') {
+      // No speech detected — just restart, keep listening
+      if (st.practiceActive) { clearTimeout(st.restartTimer); st.restartTimer = setTimeout(() => { if (st.practiceActive) startPracticeRecording(); }, 300); }
+    }
+    // Other errors — restart silently
+    else if (st.practiceActive) { clearTimeout(st.restartTimer); st.restartTimer = setTimeout(() => { if (st.practiceActive) startPracticeRecording(); }, 500); }
+  };
+
+  try { rec.start(); st.practiceRecognition = rec; }
+  catch(e) { stopPracticeRecording(); alert('Could not start speech recognition: ' + e.message); }
+}
+
+function stopPracticeRecording() {
+  st.practiceActive = false;
+  clearTimeout(st.restartTimer);
+  if (st.practiceRecognition) { try { st.practiceRecognition.stop(); } catch(e) {} st.practiceRecognition = null; }
+  document.getElementById('practiceMic').classList.remove('listening');
+}
+
+// ═══════════════════════════════════════
+// FUZZY MATCHING WITH VOICE MAP
+// Uses voice map first, then Levenshtein fallback
+// ═══════════════════════════════════════
+function similarity(a, b) {
+  if (!a || !b) return 0; if (a === b) return 1;
+  const la = a.length, lb = b.length;
+  const dp = Array.from({length: la+1}, (_, i) => Array.from({length: lb+1}, (_, j) => i===0?j:j===0?i:0));
+  for (let i = 1; i <= la; i++) for (let j = 1; j <= lb; j++) dp[i][j] = a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return 1 - dp[la][lb] / Math.max(la, lb);
+}
+
+const MATCH = 0.70, CLOSE = 0.45;
+
+function resolveWord(typedNorm, spokenNorm) {
+  // 1. Direct match
+  if (typedNorm === spokenNorm) return 'correct';
+  // 2. Check voice map: what does the user say for this typed word?
+  const voiceMap = st.activePassage.voiceMap || {};
+  const mappedPronunciation = voiceMap[typedNorm];
+  if (mappedPronunciation && mappedPronunciation === spokenNorm) return 'correct';
+  if (mappedPronunciation && similarity(mappedPronunciation, spokenNorm) >= MATCH) return 'correct';
+  // 3. Masonic dictionary check
+  const masonicSpoken = applyMasonicMap(spokenNorm);
+  if (typedNorm === masonicSpoken) return 'correct';
+  // 4. Fuzzy fallback
+  const score = similarity(typedNorm, spokenNorm);
+  if (score >= MATCH) return 'correct';
+  if (score >= CLOSE) return 'close';
+  // 5. Try mapped pronunciation fuzzy
+  if (mappedPronunciation) {
+    const mappedScore = similarity(mappedPronunciation, spokenNorm);
+    if (mappedScore >= MATCH) return 'correct';
+    if (mappedScore >= CLOSE) return 'close';
+  }
+  return 'wrong';
+}
+
+function checkAttempt() {
+  const chunks = getChunks(), chunk = chunks[st.chunkIdx] || '';
+
+  // Blind / Listen & Recite mode: reveal text with word tokens for scoring
+  if (st.format === 'blind' || st.format === 'listenrecite') {
+    const words = chunk.split(/\s+/).filter(Boolean);
+    document.getElementById('chunkBox').style.display = 'block';
+    document.getElementById('blindBox').style.display = 'none';
+    document.getElementById('listenReciteBox').style.display = 'none';
+    document.getElementById('chunkDisplay').innerHTML = words.map(w => `<span class="word-token pending" onclick="toggleWordManual(this)">${esc(w)}</span> `).join('');
+  }
+
+  const refWords = chunk.split(/\s+/).map(normWord).filter(Boolean);
+  const rawSpoken = st.practiceTranscript.trim().split(/\s+/).filter(Boolean);
+  const spokenWords = rawSpoken.map(w => applyMasonicMap(normWord(w)));
+
+  const els = document.querySelectorAll('#chunkDisplay .word-token');
+  const used = new Array(spokenWords.length).fill(false);
+  let correct = 0, close = 0, wrong = 0;
+
+  refWords.forEach((rw, ri) => {
+    const el = els[ri]; if (!el) return;
+    // Find best matching spoken word
+    let bestResult = 'wrong', bestScore = 0, bestIdx = -1;
+    spokenWords.forEach((sw, si) => {
+      if (used[si]) return;
+      const result = resolveWord(rw, sw);
+      const score = result === 'correct' ? 1 : result === 'close' ? 0.6 : similarity(rw, sw);
+      if (score > bestScore) { bestScore = score; bestResult = result; bestIdx = si; }
+    });
+    if (bestIdx !== -1 && bestResult !== 'wrong') used[bestIdx] = true;
+    el.className = 'word-token ' + bestResult;
+    el.setAttribute('data-state', bestResult);
+    if (bestResult === 'correct') correct++;
+    else if (bestResult === 'close') close++;
+    else wrong++;
   });
-  const total=refWords.length,acc=total?Math.round(((correct+close*0.5)/total)*100):0;
-  document.getElementById('scoreCorrect').textContent=correct+(close>0?' (+'+close+'~)':'');
-  document.getElementById('scoreMissed').textContent=wrong;
-  document.getElementById('scoreAccuracy').textContent=acc+'%';
-  document.getElementById('scoreRow').style.display='flex';
-  document.getElementById('practiceActions').style.display='flex';
-  const pid=st.activePassage.id;
-  if(!st.progressMap[pid])st.progressMap[pid]={sessions:0,accuracy:0};
-  const prev=st.progressMap[pid];prev.sessions++;prev.accuracy=Math.round((prev.accuracy*(prev.sessions-1)+acc)/prev.sessions);
+
+  updateScore(correct, close, wrong, refWords.length);
+  document.getElementById('scoreRow').style.display = 'block';
+  document.getElementById('practiceActions').style.display = 'flex';
+  resetMicUI();
+
+  // Save progress
+  const pid = st.activePassage.id;
+  const acc = refWords.length ? Math.round(((correct + close * 0.5) / refWords.length) * 100) : 0;
+  if (!st.progressMap[pid]) st.progressMap[pid] = { sessions: 0, accuracy: 0 };
+  const prev = st.progressMap[pid]; prev.sessions++;
+  prev.accuracy = Math.round((prev.accuracy * (prev.sessions - 1) + acc) / prev.sessions);
   persist();
 }
 
-function tryAgain(){st.practiceTranscript='';if(st.format==='blind'){document.getElementById('chunkBox').style.display='none';document.getElementById('blindBox').style.display='block';}renderChunk();}
-function prevChunk(){if(st.chunkIdx>0){st.chunkIdx--;renderChunk();}}
-function nextChunk(){const chunks=getChunks();if(st.chunkIdx<chunks.length-1){st.chunkIdx++;renderChunk();}else alert('All chunks complete at this level.\n\nWell done, brother! Try moving up a level.');}
-
-function drawDonut(id,pct,col){const c=document.getElementById(id);if(!c)return;const ctx=c.getContext('2d'),r=36,cx=44,cy=44,tau=2*Math.PI;ctx.clearRect(0,0,88,88);ctx.beginPath();ctx.arc(cx,cy,r,0,tau);ctx.strokeStyle='#ece4cc';ctx.lineWidth=9;ctx.stroke();if(pct>0){ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+tau*(pct/100));ctx.strokeStyle=col;ctx.lineWidth=9;ctx.lineCap='round';ctx.stroke();}ctx.fillStyle='#1a1208';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(pct+'%',cx,cy);}
-
-function renderProgress(){
-  const total=st.passages.length;
-  const totalSessions=Object.values(st.progressMap).reduce((a,p)=>a+p.sessions,0);
-  const strong=st.passages.filter(p=>st.progressMap[p.id]&&st.progressMap[p.id].accuracy>=80).length;
-  document.getElementById('heroSub').textContent=total?`${total} passage${total!==1?'s':''} \u00b7 ${totalSessions} session${totalSessions!==1?'s':''}`:'Your journey at a glance';
-  document.getElementById('progressStats').innerHTML=`<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div><div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div><div class="stat-box"><div class="stat-num">${strong}</div><div class="stat-label">Mastered</div></div>`;
-  if(!total){document.getElementById('donutWrap').innerHTML='';document.getElementById('progressList').innerHTML='<div class="empty-state">No passages yet.<br>Add one from the Library.</div>';return;}
-  const top=st.passages.slice(0,3);
-  document.getElementById('donutWrap').innerHTML=top.map(p=>`<div class="donut-item"><canvas id="dn_${p.id}" width="88" height="88"></canvas><div class="donut-label">${esc(p.title)}</div></div>`).join('');
-  setTimeout(()=>{top.forEach(p=>{const pct=st.progressMap[p.id]?Math.round(st.progressMap[p.id].accuracy):0;drawDonut('dn_'+p.id,pct,pct>=80?'#2d9e5f':pct>=40?'#c9a84c':'#ccbbaa');});},60);
-  document.getElementById('progressList').innerHTML=st.passages.map(p=>{const prog=st.progressMap[p.id];const acc=prog?Math.round(prog.accuracy):0;const sess=prog?prog.sessions:0;const pctColor=acc>=80?'var(--success)':acc>=40?'var(--warn)':'var(--text3)';return `<div class="progress-item"><div class="prog-header"><div class="prog-title">${esc(p.title)}</div><div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div></div><div class="prog-bar-wrap"><div class="prog-bar${acc>=80?' strong':''}" style="width:${acc}%"></div></div><div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess!==1?'s':''}</span></div></div>`;}).join('');
+function updateScore(correct, close, wrong, total) {
+  const acc = total ? Math.round(((correct + close * 0.5) / total) * 100) : 0;
+  document.getElementById('scoreCorrect').textContent = correct + (close > 0 ? ' +' + close + '~' : '');
+  document.getElementById('scoreMissed').textContent = wrong;
+  document.getElementById('scoreAccuracy').textContent = acc + '%';
 }
 
-function toggleInline(id){const el=document.getElementById(id),vis=el.style.display!=='none';['accessPinForm','erasePinForm','eraseAllForm'].forEach(f=>document.getElementById(f).style.display='none');if(!vis)el.style.display='block';}
-function saveAccessPin(){const cur=document.getElementById('currentPin').value.trim();const n1=document.getElementById('newPin1').value.trim();const n2=document.getElementById('newPin2').value.trim();if(cur!==st.accessPin){alert('Current PIN is incorrect.');return;}if(!/^\d{4}$/.test(n1)){alert('New PIN must be exactly 4 digits.');return;}if(n1!==n2){alert('New PINs do not match.');return;}if(n1===st.erasePin){alert('New PIN cannot match the erase PIN.');return;}st.accessPin=n1;persist();toggleInline('accessPinForm');['currentPin','newPin1','newPin2'].forEach(id=>document.getElementById(id).value='');feedback('Access PIN updated.','success');}
-function saveErasePin(){const val=document.getElementById('newErasePin').value.trim();const conf=document.getElementById('newErasePinConfirm').value.trim();if(!/^\d{4}$/.test(val)){alert('Erase PIN must be exactly 4 digits.');return;}if(val!==conf){alert('Erase PINs do not match.');return;}if(val===st.accessPin){alert('Erase PIN must differ from access PIN.');return;}st.erasePin=val;persist();toggleInline('erasePinForm');['newErasePin','newErasePinConfirm'].forEach(id=>document.getElementById(id).value='');feedback('Erase PIN set.','success');}
-function doEraseAll(){wipeAll();toggleInline('eraseAllForm');renderLibrary();feedback('All data erased.','success');}
-function feedback(msg,type){const fb=document.getElementById('settingsFeedback');fb.style.color=type==='success'?'var(--success)':'var(--danger)';fb.textContent=msg;setTimeout(()=>fb.textContent='',4000);}
+// ═══════════════════════════════════════
+// MANUAL WORD CORRECTION
+// Tap a word to cycle: pending → correct → wrong → pending
+// ═══════════════════════════════════════
+function toggleWordManual(el) {
+  const current = el.getAttribute('data-state') || 'pending';
+  const next = current === 'pending' ? 'correct' : current === 'correct' ? 'wrong' : 'pending';
+  el.className = 'word-token ' + next;
+  el.setAttribute('data-state', next);
+  // Recalculate score from DOM state
+  const allTokens = document.querySelectorAll('#chunkDisplay .word-token');
+  let correct = 0, close = 0, wrong = 0, total = 0;
+  allTokens.forEach(t => {
+    if (t.classList.contains('hidden')) return;
+    total++;
+    const state = t.getAttribute('data-state') || 'pending';
+    if (state === 'correct') correct++;
+    else if (state === 'close') close++;
+    else if (state === 'wrong') wrong++;
+  });
+  if (document.getElementById('scoreRow').style.display !== 'none') updateScore(correct, close, wrong, total);
+}
+
+function tryAgain() {
+  st.practiceTranscript = '';
+  stopPlayback();
+  if (st.format === 'blind') {
+    document.getElementById('chunkBox').style.display = 'none';
+    document.getElementById('blindBox').style.display = 'block';
+    document.getElementById('listenReciteBox').style.display = 'none';
+  } else if (st.format === 'listenrecite') {
+    document.getElementById('chunkBox').style.display = 'none';
+    document.getElementById('blindBox').style.display = 'none';
+    document.getElementById('listenReciteBox').style.display = 'block';
+    document.getElementById('listenReciteStatus').textContent = 'Tap Play Chunk to hear the reference again, then recite from memory.';
+  }
+  renderChunk();
+}
+function prevChunk() { if (st.chunkIdx > 0) { st.chunkIdx--; renderChunk(); } }
+function nextChunk() { const c = getChunks(); if (st.chunkIdx < c.length - 1) { st.chunkIdx++; renderChunk(); } else alert('All chunks complete at this level.\n\nWell done, brother! Try moving up a level.'); }
+
+// ═══════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════
+function drawDonut(id, pct, col) {
+  const c = document.getElementById(id); if (!c) return;
+  const ctx = c.getContext('2d'), r = 36, cx = 44, cy = 44, tau = 2 * Math.PI;
+  ctx.clearRect(0, 0, 88, 88);
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, tau); ctx.strokeStyle = '#ece4cc'; ctx.lineWidth = 9; ctx.stroke();
+  if (pct > 0) { ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI/2, -Math.PI/2 + tau*(pct/100)); ctx.strokeStyle = col; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.stroke(); }
+  ctx.fillStyle = '#1a1208'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(pct + '%', cx, cy);
+}
+function renderProgress() {
+  const total = st.passages.length;
+  const totalSessions = Object.values(st.progressMap).reduce((a, p) => a + p.sessions, 0);
+  const strong = st.passages.filter(p => st.progressMap[p.id] && st.progressMap[p.id].accuracy >= 80).length;
+  document.getElementById('heroSub').textContent = total ? `${total} passage${total!==1?'s':''} \u00b7 ${totalSessions} session${totalSessions!==1?'s':''}` : 'Your journey at a glance';
+  document.getElementById('progressStats').innerHTML = `<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div><div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div><div class="stat-box"><div class="stat-num">${strong}</div><div class="stat-label">Mastered</div></div>`;
+  if (!total) { document.getElementById('donutWrap').innerHTML = ''; document.getElementById('progressList').innerHTML = '<div class="empty-state">No passages yet.<br>Add one from the Library.</div>'; return; }
+  const top = st.passages.slice(0, 3);
+  document.getElementById('donutWrap').innerHTML = top.map(p => `<div class="donut-item"><canvas id="dn_${p.id}" width="88" height="88"></canvas><div class="donut-label">${esc(p.title)}</div></div>`).join('');
+  setTimeout(() => { top.forEach(p => { const pct = st.progressMap[p.id] ? Math.round(st.progressMap[p.id].accuracy) : 0; drawDonut('dn_' + p.id, pct, pct>=80?'#2d9e5f':pct>=40?'#c9a84c':'#ccbbaa'); }); }, 60);
+  document.getElementById('progressList').innerHTML = st.passages.map(p => {
+    const prog = st.progressMap[p.id]; const acc = prog ? Math.round(prog.accuracy) : 0; const sess = prog ? prog.sessions : 0;
+    const pctColor = acc >= 80 ? 'var(--success)' : acc >= 40 ? 'var(--warn)' : 'var(--text3)';
+    return `<div class="progress-item"><div class="prog-header"><div class="prog-title">${esc(p.title)}</div><div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div></div><div class="prog-bar-wrap"><div class="prog-bar${acc>=80?' strong':''}" style="width:${acc}%"></div></div><div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess!==1?'s':''}</span></div></div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════
+function toggleInline(id) { const el = document.getElementById(id), vis = el.style.display !== 'none'; ['accessPinForm','erasePinForm','eraseAllForm'].forEach(f => document.getElementById(f).style.display = 'none'); if (!vis) el.style.display = 'block'; }
+function saveAccessPin() { const cur = document.getElementById('currentPin').value.trim(); const n1 = document.getElementById('newPin1').value.trim(); const n2 = document.getElementById('newPin2').value.trim(); if (cur !== st.accessPin) { alert('Current PIN is incorrect.'); return; } if (!/^\d{4}$/.test(n1)) { alert('New PIN must be exactly 4 digits.'); return; } if (n1 !== n2) { alert('New PINs do not match.'); return; } if (n1 === st.erasePin) { alert('New PIN cannot match the erase PIN.'); return; } st.accessPin = n1; persist(); toggleInline('accessPinForm'); ['currentPin','newPin1','newPin2'].forEach(id => document.getElementById(id).value = ''); feedback('Access PIN updated.', 'success'); }
+function saveErasePin() { const val = document.getElementById('newErasePin').value.trim(); const conf = document.getElementById('newErasePinConfirm').value.trim(); if (!/^\d{4}$/.test(val)) { alert('Erase PIN must be exactly 4 digits.'); return; } if (val !== conf) { alert('Erase PINs do not match.'); return; } if (val === st.accessPin) { alert('Erase PIN must differ from access PIN.'); return; } st.erasePin = val; persist(); toggleInline('erasePinForm'); ['newErasePin','newErasePinConfirm'].forEach(id => document.getElementById(id).value = ''); feedback('Erase PIN set.', 'success'); }
+function doEraseAll() { wipeAll(); toggleInline('eraseAllForm'); renderLibrary(); feedback('All data erased.', 'success'); }
+function feedback(msg, type) { const fb = document.getElementById('settingsFeedback'); fb.style.color = type === 'success' ? 'var(--success)' : 'var(--danger)'; fb.textContent = msg; setTimeout(() => fb.textContent = '', 4000); }
+
+// ═══════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════
+function exportPassages() {
+  if (!st.passages.length) { alert('No passages to export.'); return; }
+  let txt = 'POCKET MENTOR — PASSAGE EXPORT\n' + new Date().toLocaleDateString() + '\n\n';
+  st.passages.forEach((p, i) => {
+    txt += '═══════════════════════════════\n';
+    txt += `PASSAGE ${i+1}: ${p.title}\n`;
+    txt += `FORMAT: ${p.format}\n`;
+    txt += '═══════════════════════════════\n\n';
+    txt += p.text + '\n\n';
+  });
+  const blob = new Blob([txt], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'pocket-mentor-passages.txt';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  feedback('Passages exported to your downloads folder.', 'success');
+}
 
 // Service worker only on GitHub Pages
-if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+if ('serviceWorker' in navigator && /github\.io/.test(location.hostname)) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
 
 showTab('library');
 </script>
