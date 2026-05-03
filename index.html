@@ -477,6 +477,15 @@ select{height:44px;}
         <div><div class="settings-label">Export passages</div><div class="settings-sub">Save all passage text to a file as backup</div></div>
         <button class="btn btn-sm" onclick="exportPassages()">Export</button>
       </div>
+      <div class="settings-section-title">App</div>
+      <div class="settings-row">
+        <div><div class="settings-label">Check for updates</div><div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div></div>
+        <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">App version</div><div class="settings-sub">Pocket Mentor &mdash; hosted on GitHub Pages</div></div>
+        <span style="font-size:12px;color:var(--text3);" id="appVersion">v1.0</span>
+      </div>
       <div class="settings-row">
         <div><div class="settings-label">Erase all data</div><div class="settings-sub">Permanently removes all passages, recordings and progress</div></div>
         <button class="btn btn-sm btn-danger" onclick="toggleInline('eraseAllForm')">Erase</button>
@@ -1363,10 +1372,109 @@ function exportPassages() {
   feedback('Passages exported to your downloads folder.', 'success');
 }
 
-// Service worker only on GitHub Pages
+// ═══════════════════════════════════════
+// SERVICE WORKER + UPDATE CHECK
+// ═══════════════════════════════════════
+let swRegistration = null;
+
 if ('serviceWorker' in navigator && /github\.io/.test(location.hostname)) {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      swRegistration = reg;
+      // Listen for a new service worker waiting to activate
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New version available — notify user
+              showUpdateBanner();
+            }
+          });
+        }
+      });
+    }).catch(() => {});
+
+    // When a new service worker takes control — reload to apply update
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  });
 }
+
+function checkForUpdates() {
+  const btn = document.getElementById('updateBtn');
+  const sub = document.getElementById('updateSub');
+  btn.textContent = 'Checking...';
+  btn.disabled = true;
+
+  // If not on GitHub Pages — inform user
+  if (!/github\.io/.test(location.hostname)) {
+    sub.textContent = 'Update check only works when installed from GitHub Pages.';
+    btn.textContent = 'Check';
+    btn.disabled = false;
+    return;
+  }
+
+  if (!swRegistration) {
+    // Try to get registration
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg) { swRegistration = reg; doUpdateCheck(btn, sub); }
+      else { sub.textContent = 'No service worker found. Try refreshing the app.'; btn.textContent = 'Check'; btn.disabled = false; }
+    });
+    return;
+  }
+  doUpdateCheck(btn, sub);
+}
+
+function doUpdateCheck(btn, sub) {
+  sub.textContent = 'Checking for updates...';
+  swRegistration.update().then(() => {
+    // Check if there is already a waiting worker (update ready)
+    if (swRegistration.waiting) {
+      sub.textContent = 'Update found! Tap Apply to reload with the latest version.';
+      btn.textContent = 'Apply';
+      btn.disabled = false;
+      btn.onclick = applyUpdate;
+    } else {
+      sub.textContent = 'You are on the latest version.';
+      btn.textContent = 'Check';
+      btn.disabled = false;
+      setTimeout(() => { sub.textContent = 'Sync the installed app with the latest version'; }, 3000);
+    }
+  }).catch(() => {
+    sub.textContent = 'Could not check for updates. Check your internet connection.';
+    btn.textContent = 'Check';
+    btn.disabled = false;
+  });
+}
+
+function applyUpdate() {
+  if (swRegistration && swRegistration.waiting) {
+    // Tell the waiting service worker to take control
+    swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+  } else {
+    // Fallback — hard reload
+    window.location.reload(true);
+  }
+}
+
+function showUpdateBanner() {
+  const sub = document.getElementById('updateSub');
+  const btn = document.getElementById('updateBtn');
+  if (sub && btn) {
+    sub.textContent = 'A new version is available!';
+    btn.textContent = 'Apply';
+    btn.disabled = false;
+    btn.onclick = applyUpdate;
+  }
+}
+
+// Set a build timestamp as version indicator
+document.addEventListener('DOMContentLoaded', () => {
+  const vEl = document.getElementById('appVersion');
+  if (vEl) vEl.textContent = 'Build: 2025-05';
+});
 
 showTab('library');
 </script>

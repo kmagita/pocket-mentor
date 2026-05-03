@@ -1,14 +1,15 @@
-const CACHE = 'pocket-mentor-v1';
+const CACHE = 'pocket-mentor-v2';
 const ASSETS = [
   './',
   './index.html',
-  './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap'
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => {
+      // Do NOT skip waiting automatically — let the user choose when to update
+    })
   );
 });
 
@@ -22,6 +23,23 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('./index.html')))
+    caches.match(e.request).then(cached => {
+      // Network first for HTML so updates are picked up, cache fallback for offline
+      if (e.request.mode === 'navigate') {
+        return fetch(e.request).then(response => {
+          const clone = response.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+          return response;
+        }).catch(() => cached || caches.match('./index.html'));
+      }
+      return cached || fetch(e.request).catch(() => caches.match('./index.html'));
+    })
   );
+});
+
+// Listen for SKIP_WAITING message from the app
+self.addEventListener('message', e => {
+  if (e.data && e.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
