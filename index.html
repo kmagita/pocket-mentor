@@ -374,10 +374,15 @@ select{height:42px;}
 
       <!-- RECORDING section — adapts per format -->
       <div id="recordingSection">
-        <!-- For charge/oration: single passage recording -->
+        <!-- For charge/oration: single passage recording or TTS -->
         <div id="singleRecSection">
-          <div class="section-label">Reference recording &amp; voice mapping</div>
-          <div class="rec-box">
+          <div class="section-label">Reference voice</div>
+          <div class="voice-option-row" style="margin-bottom:10px;">
+            <div class="voice-option active" id="refVoiceOptReal" onclick="setRefVoiceType('real')">&#127908; Record my voice</div>
+            <div class="voice-option" id="refVoiceOptTTS" onclick="setRefVoiceType('tts')">&#128266; Synthetic voice</div>
+          </div>
+          <!-- Record panel -->
+          <div class="rec-box" id="refRealPanel">
             <div class="rec-box-title">Record yourself reading the full passage</div>
             <div class="rec-box-sub">The app maps your pronunciation to each word. Read clearly at a steady pace.</div>
             <div class="rec-row">
@@ -391,6 +396,15 @@ select{height:42px;}
               </div>
             </div>
             <div style="font-size:11px;color:var(--text3);margin-top:6px;" id="mappingStatus"></div>
+          </div>
+          <!-- TTS panel -->
+          <div class="rec-box" id="refTTSPanel" style="display:none;">
+            <div class="rec-box-title">Choose a synthetic voice</div>
+            <div class="rec-box-sub">The app will read the passage aloud using text-to-speech during practice sessions.</div>
+            <div class="voice-selector-row">
+              <select id="refTTSVoice" onchange="autoSaveDraft()"><option value="0">Loading voices...</option></select>
+              <button class="voice-preview-btn" onclick="previewRefTTS()">Preview</button>
+            </div>
           </div>
         </div>
         <!-- For catechism/responsive: per-item recording handled inline in builders -->
@@ -586,11 +600,7 @@ select{height:42px;}
       </div>
       <div class="settings-section-title">App</div>
       <div class="settings-row">
-        <div>
-          <div class="settings-label">Check for updates</div>
-          <div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.1</span></div>
-        </div>
+        <div><div class="settings-label">Check for updates</div><div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div></div>
         <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
       </div>
       <div class="settings-section-title">Data</div>
@@ -735,6 +745,7 @@ function persist(){
   try{
     const stripped = st.passages.map(p=>({
       id:p.id, title:p.title, text:p.text, format:p.format,
+      refVoiceType:p.refVoiceType||'real', refVoiceIndex:p.refVoiceIndex||0,
       qnaPairs:p.qnaPairs||[], speakers:p.speakers||[], respLines:p.respLines||[],
       created:p.created
     }));
@@ -822,6 +833,7 @@ function onFormatChange(fmt){
   document.getElementById('respGroup').style.display = fmt==='responsive'?'block':'none';
   document.getElementById('singleRecSection').style.display = (fmt==='charge'||fmt==='oration')?'block':'none';
   document.getElementById('perItemRecSection').style.display = (fmt==='catechism'||fmt==='responsive')?'block':'none';
+  if(fmt==='charge'||fmt==='oration') setRefVoiceType('real');
   if(fmt==='catechism' && document.getElementById('qnaList').children.length===0) addQnaPair();
   if(fmt==='responsive' && document.getElementById('speakerList').children.length===0){ addSpeaker('Worshipful Master'); addSpeaker('Brethren'); addRespLine(); }
   autoSaveDraft();
@@ -841,6 +853,8 @@ function autoSaveDraft(){
     qnaPairs: fmt==='catechism' ? collectQnaPairs() : [],
     speakers: fmt==='responsive' ? collectSpeakers() : [],
     respLines: fmt==='responsive' ? collectRespLines() : [],
+    refVoiceType: (fmt==='charge'||fmt==='oration') ? (document.getElementById('refVoiceOptTTS')?.classList.contains('active')?'tts':'real') : 'real',
+    refVoiceIndex: (fmt==='charge'||fmt==='oration') ? (parseInt(document.getElementById('refTTSVoice')?.value)||0) : 0,
     itemRecordings: {...st.itemRecordings},
     refAudio: st.refRecording,
     savedAt: Date.now()
@@ -918,6 +932,18 @@ function showAddTab(id, fromDraft){
   st.refRecording=src?(src.refAudio||null):null;
   if(src&&src.itemRecordings) st.itemRecordings={...src.itemRecordings};
 
+  // Restore ref voice type (charge/oration)
+  const savedVoiceType=src?src.refVoiceType||'real':'real';
+  const savedVoiceIndex=src?src.refVoiceIndex||0:0;
+  setRefVoiceType(savedVoiceType);
+  if(savedVoiceType==='tts'){
+    const sel=document.getElementById('refTTSVoice');
+    if(sel){
+      sel.innerHTML=buildVoiceSelect(savedVoiceIndex);
+      sel.value=savedVoiceIndex;
+    }
+  }
+
   // Update recording UI
   const hasSingleRec=st.refRecording&&(fmt==='charge'||fmt==='oration');
   document.getElementById('recStatus').textContent=hasSingleRec?'Tap mic to re-record':'Tap mic to start recording';
@@ -981,6 +1007,25 @@ function previewTTS(key){
   const sel=document.getElementById('ttsv_'+key);
   const idx=sel?parseInt(sel.value):0;
   speakText('The quick brown fox jumps over the lazy dog.', idx, st.speed);
+}
+
+function setRefVoiceType(type){
+  document.getElementById('refVoiceOptReal').classList.toggle('active',type==='real');
+  document.getElementById('refVoiceOptTTS').classList.toggle('active',type==='tts');
+  document.getElementById('refRealPanel').style.display=type==='real'?'block':'none';
+  document.getElementById('refTTSPanel').style.display=type==='tts'?'block':'none';
+  if(type==='tts'){
+    const sel=document.getElementById('refTTSVoice');
+    if(sel&&ttsVoices.length) sel.innerHTML=buildVoiceSelect(parseInt(sel.value)||0);
+  }
+  autoSaveDraft();
+}
+
+function previewRefTTS(){
+  const sel=document.getElementById('refTTSVoice');
+  const idx=sel?parseInt(sel.value):0;
+  const text=document.getElementById('newText').value.trim();
+  speakText(text?text.slice(0,120):'The quick brown fox jumps over the lazy dog.',idx,st.speed);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1279,12 +1324,21 @@ function savePassage(){
   } else {
     text=document.getElementById('newText').value.trim();
     if(!text){ alert('Please enter the passage text.'); return; }
-    if(!st.refRecording){ alert('Please record your reference reading before saving.'); return; }
+    const isTTSMode=document.getElementById('refVoiceOptTTS')?.classList.contains('active');
+    if(!isTTSMode&&!st.refRecording){ alert('Please record your reference reading, or switch to Synthetic voice.'); return; }
   }
+
+  const refVoiceType=(fmt==='charge'||fmt==='oration')
+    ? (document.getElementById('refVoiceOptTTS')?.classList.contains('active')?'tts':'real')
+    : 'real';
+  const refVoiceIndex=(fmt==='charge'||fmt==='oration')
+    ? (parseInt(document.getElementById('refTTSVoice')?.value)||0)
+    : 0;
 
   const entry={
     title, text, format:fmt,
     qnaPairs, speakers, respLines,
+    refVoiceType, refVoiceIndex,
     refAudio:st.refRecording,
     voiceMap:st.voiceMap||{},
     chunkTimestamps:st.chunkTimestamps||[],
@@ -1323,7 +1377,7 @@ function renderLibrary(filter='all'){
     let readyIcon='';
     if(p.format==='catechism') readyIcon=p.qnaPairs&&p.qnaPairs.length?'<span style="color:var(--success);font-size:11px;">&#10003; '+p.qnaPairs.length+' pairs</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No pairs</span>';
     else if(p.format==='responsive') readyIcon=p.respLines&&p.respLines.length?'<span style="color:var(--success);font-size:11px;">&#10003; '+p.respLines.length+' lines</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No lines</span>';
-    else readyIcon=p.refAudio?'<span style="color:var(--success);font-size:11px;">&#10003; Recorded</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No recording</span>';
+    else readyIcon=p.refVoiceType==='tts'?'<span style="color:var(--info);font-size:11px;">&#128266; Synthetic voice</span>':p.refAudio?'<span style="color:var(--success);font-size:11px;">&#10003; Recorded</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No recording</span>';
     return `<div class="passage-card" id="pc-${p.id}">
       <div class="passage-card-accent"></div>
       <div class="passage-card-body">
@@ -1361,7 +1415,7 @@ function confirmDelete(id){ st.passages=st.passages.filter(p=>p.id!==id); delete
 function openPractice(id){
   const p=st.passages.find(p=>p.id===id); if(!p) return;
   // Validation
-  if((p.format==='charge'||p.format==='oration')&&!p.refAudio){ alert('No reference recording. Please edit and record first.'); return; }
+  if((p.format==='charge'||p.format==='oration')&&p.refVoiceType!=='tts'&&!p.refAudio){ alert('No reference recording. Please edit and record first, or switch to Synthetic voice.'); return; }
   if(p.format==='catechism'&&(!p.qnaPairs||!p.qnaPairs.length)){ alert('No Q&A pairs found. Please edit and add pairs first.'); return; }
   if(p.format==='responsive'&&(!p.respLines||!p.respLines.length)){ alert('No lines found. Please edit and add lines first.'); return; }
 
@@ -1537,6 +1591,13 @@ function playFull(){
     playItemSequence(p, 0);
     return;
   }
+  // Charge / oration
+  if(p.refVoiceType==='tts'){
+    document.getElementById('stopBtn').style.display='flex';
+    document.getElementById('playbackStatus').textContent='Playing full passage (TTS)...';
+    speakText(p.text, p.refVoiceIndex||0, st.speed, ()=>stopPlayback());
+    return;
+  }
   if(!p.refAudio){ alert('No reference recording found.'); return; }
   const audio=new Audio(p.refAudio); audio.playbackRate=st.speed;
   st.currentAudio=audio;
@@ -1631,7 +1692,19 @@ function playChunk(){
     return;
   }
 
-  // Standard: slice the audio
+  // Standard: TTS or recorded audio
+  if(p.refVoiceType==='tts'){
+    document.getElementById('stopBtn').style.display='flex';
+    document.getElementById('playbackStatus').textContent='Playing chunk '+(st.chunkIdx+1)+' (TTS)...';
+    speakText(chunk, p.refVoiceIndex||0, st.speed, ()=>{
+      stopPlayback();
+      if((st.format==='listenrecite')&&!st.practiceActive){
+        document.getElementById('listenReciteStatus').textContent='Now recite — mic opening...';
+        setTimeout(()=>{ if(st.format==='listenrecite'){ startPracticeRecording(); document.getElementById('listenReciteStatus').textContent='Reciting... tap mic to stop.'; } },700);
+      }
+    });
+    return;
+  }
   if(!p.refAudio){ alert('No reference recording found.'); return; }
   const ts=p.chunkTimestamps||[];
   let startTime=0, endTime=null;
@@ -1903,64 +1976,37 @@ function exportPassages(){
 }
 
 // ═══════════════════════════════════════════════════════
-// UPDATE CHECK — version file comparison
-// Most reliable method for PWA on Android/iOS
+// UPDATE CHECK
 // ═══════════════════════════════════════════════════════
-const APP_VERSION = '1.1';  // Bump this with every release
-
-// Register service worker for offline support only
+let swRegistration=null;
 if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      swRegistration=reg;
+      reg.addEventListener('updatefound',()=>{
+        const nw=reg.installing;
+        if(nw) nw.addEventListener('statechange',()=>{ if(nw.state==='installed'&&navigator.serviceWorker.controller) showUpdateBanner(); });
+      });
+    }).catch(()=>{});
+    navigator.serviceWorker.addEventListener('controllerchange',()=>window.location.reload());
   });
 }
-
 function checkForUpdates(){
-  const btn=document.getElementById('updateBtn');
-  const sub=document.getElementById('updateSub');
-  btn.textContent='Checking...';
-  btn.disabled=true;
-
-  if(!/github\.io/.test(location.hostname)){
-    sub.textContent='Update check works when installed from GitHub Pages.';
-    btn.textContent='Check'; btn.disabled=false; return;
-  }
-
-  // Fetch version.json with cache-busting so we always get the latest
-  fetch('version.json?t='+Date.now())
-    .then(r=>{
-      if(!r.ok) throw new Error('Not found');
-      return r.json();
-    })
-    .then(data=>{
-      const latest = String(data.version||'');
-      const current = APP_VERSION;
-      if(latest && latest !== current){
-        // Update available
-        sub.textContent='Update available (v'+latest+'). Tap Apply to reload.';
-        btn.textContent='Apply update';
-        btn.disabled=false;
-        btn.onclick=()=>{
-          // Clear caches then reload
-          if('caches'in window){
-            caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(()=>window.location.reload(true));
-          } else {
-            window.location.reload(true);
-          }
-        };
-      } else {
-        sub.textContent='You are on the latest version (v'+current+').';
-        btn.textContent='Check';
-        btn.disabled=false;
-        setTimeout(()=>{ sub.textContent='Sync the installed app with the latest version'; },3000);
-      }
-    })
-    .catch(()=>{
-      sub.textContent='Could not check. Make sure you have internet access.';
-      btn.textContent='Check';
-      btn.disabled=false;
-    });
+  const btn=document.getElementById('updateBtn');const sub=document.getElementById('updateSub');
+  btn.textContent='Checking...';btn.disabled=true;
+  if(!/github\.io/.test(location.hostname)){sub.textContent='Update check only works when installed from GitHub Pages.';btn.textContent='Check';btn.disabled=false;return;}
+  const doCheck=reg=>{
+    sub.textContent='Checking for updates...';
+    reg.update().then(()=>{
+      if(reg.waiting){sub.textContent='Update found! Tap Apply.';btn.textContent='Apply';btn.disabled=false;btn.onclick=applyUpdate;}
+      else{sub.textContent='You are on the latest version.';btn.textContent='Check';btn.disabled=false;setTimeout(()=>{sub.textContent='Sync the installed app with the latest version';},3000);}
+    }).catch(()=>{sub.textContent='Could not check. Check your internet connection.';btn.textContent='Check';btn.disabled=false;});
+  };
+  if(swRegistration) doCheck(swRegistration);
+  else navigator.serviceWorker.getRegistration().then(reg=>{if(reg){swRegistration=reg;doCheck(reg);}else{sub.textContent='No service worker found. Try refreshing.';btn.textContent='Check';btn.disabled=false;}});
 }
+function applyUpdate(){if(swRegistration&&swRegistration.waiting){swRegistration.waiting.postMessage({type:'SKIP_WAITING'});}else{window.location.reload(true);}}
+function showUpdateBanner(){const sub=document.getElementById('updateSub');const btn=document.getElementById('updateBtn');if(sub&&btn){sub.textContent='A new version is available!';btn.textContent='Apply';btn.disabled=false;btn.onclick=applyUpdate;}}
 
 // ═══════════════════════════════════════════════════════
 // INIT
