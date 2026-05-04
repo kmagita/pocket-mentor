@@ -586,7 +586,11 @@ select{height:42px;}
       </div>
       <div class="settings-section-title">App</div>
       <div class="settings-row">
-        <div><div class="settings-label">Check for updates</div><div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div></div>
+        <div>
+          <div class="settings-label">Check for updates</div>
+          <div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.1</span></div>
+        </div>
         <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
       </div>
       <div class="settings-section-title">Data</div>
@@ -1899,37 +1903,64 @@ function exportPassages(){
 }
 
 // ═══════════════════════════════════════════════════════
-// UPDATE CHECK
+// UPDATE CHECK — version file comparison
+// Most reliable method for PWA on Android/iOS
 // ═══════════════════════════════════════════════════════
-let swRegistration=null;
+const APP_VERSION = '1.1';  // Bump this with every release
+
+// Register service worker for offline support only
 if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').then(reg=>{
-      swRegistration=reg;
-      reg.addEventListener('updatefound',()=>{
-        const nw=reg.installing;
-        if(nw) nw.addEventListener('statechange',()=>{ if(nw.state==='installed'&&navigator.serviceWorker.controller) showUpdateBanner(); });
-      });
-    }).catch(()=>{});
-    navigator.serviceWorker.addEventListener('controllerchange',()=>window.location.reload());
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
   });
 }
+
 function checkForUpdates(){
-  const btn=document.getElementById('updateBtn');const sub=document.getElementById('updateSub');
-  btn.textContent='Checking...';btn.disabled=true;
-  if(!/github\.io/.test(location.hostname)){sub.textContent='Update check only works when installed from GitHub Pages.';btn.textContent='Check';btn.disabled=false;return;}
-  const doCheck=reg=>{
-    sub.textContent='Checking for updates...';
-    reg.update().then(()=>{
-      if(reg.waiting){sub.textContent='Update found! Tap Apply.';btn.textContent='Apply';btn.disabled=false;btn.onclick=applyUpdate;}
-      else{sub.textContent='You are on the latest version.';btn.textContent='Check';btn.disabled=false;setTimeout(()=>{sub.textContent='Sync the installed app with the latest version';},3000);}
-    }).catch(()=>{sub.textContent='Could not check. Check your internet connection.';btn.textContent='Check';btn.disabled=false;});
-  };
-  if(swRegistration) doCheck(swRegistration);
-  else navigator.serviceWorker.getRegistration().then(reg=>{if(reg){swRegistration=reg;doCheck(reg);}else{sub.textContent='No service worker found. Try refreshing.';btn.textContent='Check';btn.disabled=false;}});
+  const btn=document.getElementById('updateBtn');
+  const sub=document.getElementById('updateSub');
+  btn.textContent='Checking...';
+  btn.disabled=true;
+
+  if(!/github\.io/.test(location.hostname)){
+    sub.textContent='Update check works when installed from GitHub Pages.';
+    btn.textContent='Check'; btn.disabled=false; return;
+  }
+
+  // Fetch version.json with cache-busting so we always get the latest
+  fetch('version.json?t='+Date.now())
+    .then(r=>{
+      if(!r.ok) throw new Error('Not found');
+      return r.json();
+    })
+    .then(data=>{
+      const latest = String(data.version||'');
+      const current = APP_VERSION;
+      if(latest && latest !== current){
+        // Update available
+        sub.textContent='Update available (v'+latest+'). Tap Apply to reload.';
+        btn.textContent='Apply update';
+        btn.disabled=false;
+        btn.onclick=()=>{
+          // Clear caches then reload
+          if('caches'in window){
+            caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(()=>window.location.reload(true));
+          } else {
+            window.location.reload(true);
+          }
+        };
+      } else {
+        sub.textContent='You are on the latest version (v'+current+').';
+        btn.textContent='Check';
+        btn.disabled=false;
+        setTimeout(()=>{ sub.textContent='Sync the installed app with the latest version'; },3000);
+      }
+    })
+    .catch(()=>{
+      sub.textContent='Could not check. Make sure you have internet access.';
+      btn.textContent='Check';
+      btn.disabled=false;
+    });
 }
-function applyUpdate(){if(swRegistration&&swRegistration.waiting){swRegistration.waiting.postMessage({type:'SKIP_WAITING'});}else{window.location.reload(true);}}
-function showUpdateBanner(){const sub=document.getElementById('updateSub');const btn=document.getElementById('updateBtn');if(sub&&btn){sub.textContent='A new version is available!';btn.textContent='Apply';btn.disabled=false;btn.onclick=applyUpdate;}}
 
 // ═══════════════════════════════════════════════════════
 // INIT
