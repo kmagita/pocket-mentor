@@ -1,4 +1,4 @@
-const CACHE = 'pocket-mentor-v2';
+const CACHE = 'pocket-mentor-v3';
 const ASSETS = [
   './',
   './index.html',
