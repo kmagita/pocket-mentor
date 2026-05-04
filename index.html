@@ -842,15 +842,6 @@ function onFormatChange(fmt){
   if(fmt==='responsive' && document.getElementById('speakerList').children.length===0){ addSpeaker('Worshipful Master'); addSpeaker('Brethren'); addRespLine(); }
   autoSaveDraft();
 }
-  document.getElementById('textGroup').style.display = (fmt==='charge'||fmt==='oration')?'block':'none';
-  document.getElementById('catGroup').style.display = fmt==='catechism'?'block':'none';
-  document.getElementById('respGroup').style.display = fmt==='responsive'?'block':'none';
-  document.getElementById('singleRecSection').style.display = (fmt==='charge'||fmt==='oration')?'block':'none';
-  document.getElementById('perItemRecSection').style.display = (fmt==='catechism'||fmt==='responsive')?'block':'none';
-  if(fmt==='catechism' && document.getElementById('qnaList').children.length===0) addQnaPair();
-  if(fmt==='responsive' && document.getElementById('speakerList').children.length===0){ addSpeaker('Worshipful Master'); addSpeaker('Brethren'); addRespLine(); }
-  autoSaveDraft();
-}
 
 // ═══════════════════════════════════════════════════════
 // DRAFT SYSTEM
