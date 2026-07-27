@@ -374,7 +374,7 @@ select{height:42px;}
 
       <!-- RECORDING section — adapts per format -->
       <div id="recordingSection">
-        <!-- For charge/oration: single passage recording or TTS -->
+        <!-- For charge/oration: single passage recording -->
         <div id="singleRecSection">
           <div class="section-label">Reference voice</div>
           <div class="voice-option-row" style="margin-bottom:10px;">
@@ -465,6 +465,12 @@ select{height:42px;}
 
       <!-- Phase indicator for catechism -->
       <div class="cat-phase-bar" id="catPhaseBar" style="display:none;"></div>
+
+      <!-- Catechism start panel -->
+      <div id="catStartPanel" style="display:none;text-align:center;padding:20px 0 8px;">
+        <button class="btn btn-primary" style="padding:13px 36px;font-size:15px;letter-spacing:0.03em;" onclick="startCatSession()">&#9654; Start</button>
+        <div style="font-size:12px;color:var(--text3);margin-top:10px;">Questions will play automatically as you press Next</div>
+      </div>
 
       <!-- Standard text display -->
       <div class="chunk-box" id="chunkBox"><div class="chunk-text" id="chunkDisplay"></div></div>
@@ -936,13 +942,15 @@ function showAddTab(id, fromDraft){
   st.refRecording=src?(src.refAudio||null):null;
   if(src&&src.itemRecordings) st.itemRecordings={...src.itemRecordings};
 
-  // Restore ref voice type (charge/oration)
-  const savedVoiceType=src?src.refVoiceType||'real':'real';
-  const savedVoiceIndex=src?src.refVoiceIndex||0:0;
-  setRefVoiceType(savedVoiceType);
-  if(savedVoiceType==='tts'){
-    const sel=document.getElementById('refTTSVoice');
-    if(sel){ sel.innerHTML=buildVoiceSelect(savedVoiceIndex); sel.value=savedVoiceIndex; }
+  // Restore ref voice type for charge/oration
+  if(fmt==='charge'||fmt==='oration'){
+    const savedVoiceType=src?src.refVoiceType||'real':'real';
+    const savedVoiceIndex=src?src.refVoiceIndex||0:0;
+    setRefVoiceType(savedVoiceType);
+    if(savedVoiceType==='tts'){
+      const sel=document.getElementById('refTTSVoice');
+      if(sel){ sel.innerHTML=buildVoiceSelect(savedVoiceIndex); sel.value=savedVoiceIndex; }
+    }
   }
 
   // Update recording UI
@@ -1419,15 +1427,17 @@ function openPractice(id){
   if(p.format==='responsive'&&(!p.respLines||!p.respLines.length)){ alert('No lines found. Please edit and add lines first.'); return; }
 
   st.activePassage=p; st.chunkIdx=0; st.level=1; st.format='recite'; st.speed=0.75;
+  st.catAutoPlay=false;
   document.getElementById('practiceTitle').textContent=p.title;
   document.getElementById('practiceSub').textContent=p.format;
   document.querySelectorAll('.level-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
   document.querySelectorAll('.format-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
   document.querySelectorAll('.speed-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
 
-  // Format buttons — hide level selector for catechism/responsive (each Q or line is one chunk)
+  // Hide level + format selectors for catechism/responsive (not applicable)
   const isCatOrResp=p.format==='catechism'||p.format==='responsive';
   document.querySelector('.level-row').style.display=isCatOrResp?'none':'flex';
+  document.getElementById('formatRow').style.display=isCatOrResp?'none':'flex';
 
   showTab('practice'); renderChunk();
 }
@@ -1513,15 +1523,19 @@ function renderCatChunk(answerText){
   const p=st.activePassage;
   const pair=p.qnaPairs[st.chunkIdx];
   if(!pair) return;
-  const isEasy=st.level===1;
   document.getElementById('catQText').textContent=pair.q;
   document.getElementById('catQBox').style.display='block';
   document.getElementById('catPhaseBar').style.display='block';
-  document.getElementById('catPhaseBar').textContent=isEasy
-    ?'Reading mode — question and answer visible'
-    :'Practice mode — read/hear question, then recite the answer from memory';
-  if(isEasy){
-    // Show answer too
+
+  const startPanel=document.getElementById('catStartPanel');
+  if(!st.catAutoPlay){
+    // Show Start button, hide answer
+    document.getElementById('catPhaseBar').textContent='Press Start — questions will play automatically as you progress';
+    if(startPanel) startPanel.style.display='block';
+  } else {
+    if(startPanel) startPanel.style.display='none';
+    document.getElementById('catPhaseBar').textContent='Listen to the question, then recite the answer';
+    // Show answer in reading mode (level 1 easy view)
     const words=answerText.split(/\s+/).filter(Boolean);
     document.getElementById('catADisplay').innerHTML=words.map(w=>`<span class="word-token pending" onclick="toggleWord(this)">${esc(w)}</span> `).join('');
     document.getElementById('catABox').style.display='block';
@@ -1571,6 +1585,19 @@ function renderRespChunk(){
 function setLevel(lvl,el){ st.level=lvl; st.chunkIdx=0; document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); renderChunk(); }
 function setFormat(fmt,el){ st.format=fmt; document.querySelectorAll('.format-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); renderChunk(); }
 function setSpeed(s,el){ st.speed=s; document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); }
+
+function startCatSession(){
+  st.catAutoPlay=true;
+  document.getElementById('catStartPanel').style.display='none';
+  // Show the answer area for the first question and auto-play
+  const p=st.activePassage; if(!p) return;
+  const pair=p.qnaPairs[st.chunkIdx]; if(!pair) return;
+  document.getElementById('catPhaseBar').textContent='Listen to the question, then recite the answer';
+  const words=pair.a.split(/\s+/).filter(Boolean);
+  document.getElementById('catADisplay').innerHTML=words.map(w=>`<span class="word-token pending" onclick="toggleWord(this)">${esc(w)}</span> `).join('');
+  document.getElementById('catABox').style.display='block';
+  setTimeout(()=>playChunk(), 200);
+}
 
 // ═══════════════════════════════════════════════════════
 // PLAYBACK
@@ -1697,7 +1724,7 @@ function playChunk(){
     document.getElementById('playbackStatus').textContent='Playing chunk '+(st.chunkIdx+1)+' (TTS)...';
     speakText(chunk, p.refVoiceIndex||0, st.speed, ()=>{
       stopPlayback();
-      if((st.format==='listenrecite')&&!st.practiceActive){
+      if(st.format==='listenrecite'&&!st.practiceActive){
         document.getElementById('listenReciteStatus').textContent='Now recite — mic opening...';
         setTimeout(()=>{ if(st.format==='listenrecite'){ startPracticeRecording(); document.getElementById('listenReciteStatus').textContent='Reciting... tap mic to stop.'; } },700);
       }
@@ -1915,7 +1942,18 @@ function tryAgain(){
   renderChunk();
 }
 function prevChunk(){ if(st.chunkIdx>0){st.chunkIdx--;renderChunk();} }
-function nextChunk(){ const c=getChunks(); if(st.chunkIdx<c.length-1){st.chunkIdx++;renderChunk();}else alert('All chunks complete at this level!\n\nWell done, brother.'); }
+function nextChunk(){
+  const c=getChunks();
+  if(st.chunkIdx<c.length-1){
+    st.chunkIdx++;
+    renderChunk();
+    if(st.catAutoPlay && st.activePassage && st.activePassage.format==='catechism'){
+      setTimeout(()=>playChunk(), 350);
+    }
+  } else {
+    alert('All chunks complete!\n\nWell done, brother.');
+  }
+}
 
 // ═══════════════════════════════════════════════════════
 // PROGRESS
