@@ -490,6 +490,9 @@ select{height:42px;}
       <!-- Catechism Q panel -->
       <div id="catQBox" style="display:none;">
         <div class="cat-q-box"><div class="cat-q-label">Question</div><div class="cat-q-text" id="catQText"></div></div>
+        <div id="catAnswerToggleRow" style="display:none;padding:8px 0 2px;">
+          <button class="btn btn-sm" id="catAnswerToggleBtn" onclick="toggleCatAnswer()" style="width:100%;font-size:12px;">&#128065; Show Answer</button>
+        </div>
         <div class="cat-a-box" id="catABox" style="display:none;">
           <div class="cat-a-label">Answer</div>
           <div class="chunk-text" id="catADisplay"></div>
@@ -609,7 +612,7 @@ select{height:42px;}
         <div>
           <div class="settings-label">Check for updates</div>
           <div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.3</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.4</span></div>
         </div>
         <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
       </div>
@@ -1427,7 +1430,7 @@ function openPractice(id){
   if(p.format==='responsive'&&(!p.respLines||!p.respLines.length)){ alert('No lines found. Please edit and add lines first.'); return; }
 
   st.activePassage=p; st.chunkIdx=0; st.level=1; st.format='recite'; st.speed=0.75;
-  st.catAutoPlay=false;
+  st.catAutoPlay=false; st.catShowAnswer=false;
   document.getElementById('practiceTitle').textContent=p.title;
   document.getElementById('practiceSub').textContent=p.format;
   document.querySelectorAll('.level-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
@@ -1528,18 +1531,32 @@ function renderCatChunk(answerText){
   document.getElementById('catPhaseBar').style.display='block';
 
   const startPanel=document.getElementById('catStartPanel');
+  const toggleRow=document.getElementById('catAnswerToggleRow');
+  const toggleBtn=document.getElementById('catAnswerToggleBtn');
+
   if(!st.catAutoPlay){
-    // Show Start button, hide answer
+    // Before Start — show start panel only
     document.getElementById('catPhaseBar').textContent='Press Start — questions will play automatically as you progress';
     if(startPanel) startPanel.style.display='block';
+    if(toggleRow) toggleRow.style.display='none';
   } else {
     if(startPanel) startPanel.style.display='none';
     document.getElementById('catPhaseBar').textContent='Listen to the question, then recite the answer';
-    // Show answer in reading mode (level 1 easy view)
+    // Show toggle button
+    if(toggleRow) toggleRow.style.display='block';
+    // Build answer tokens (always in DOM for scoring, visibility controlled separately)
     const words=answerText.split(/\s+/).filter(Boolean);
     document.getElementById('catADisplay').innerHTML=words.map(w=>`<span class="word-token pending" onclick="toggleWord(this)">${esc(w)}</span> `).join('');
-    document.getElementById('catABox').style.display='block';
+    // Apply current show/hide preference
+    document.getElementById('catABox').style.display=st.catShowAnswer?'block':'none';
+    if(toggleBtn) toggleBtn.innerHTML=st.catShowAnswer?'&#128065; Hide Answer':'&#128065; Show Answer';
   }
+}
+
+function toggleCatAnswer(){
+  st.catShowAnswer=!st.catShowAnswer;
+  document.getElementById('catABox').style.display=st.catShowAnswer?'block':'none';
+  document.getElementById('catAnswerToggleBtn').innerHTML=st.catShowAnswer?'&#128065; Hide Answer':'&#128065; Show Answer';
 }
 
 function renderRespChunk(){
@@ -1589,13 +1606,14 @@ function setSpeed(s,el){ st.speed=s; document.querySelectorAll('.speed-btn').for
 function startCatSession(){
   st.catAutoPlay=true;
   document.getElementById('catStartPanel').style.display='none';
-  // Show the answer area for the first question and auto-play
+  document.getElementById('catAnswerToggleRow').style.display='block';
   const p=st.activePassage; if(!p) return;
   const pair=p.qnaPairs[st.chunkIdx]; if(!pair) return;
   document.getElementById('catPhaseBar').textContent='Listen to the question, then recite the answer';
   const words=pair.a.split(/\s+/).filter(Boolean);
   document.getElementById('catADisplay').innerHTML=words.map(w=>`<span class="word-token pending" onclick="toggleWord(this)">${esc(w)}</span> `).join('');
-  document.getElementById('catABox').style.display='block';
+  document.getElementById('catABox').style.display=st.catShowAnswer?'block':'none';
+  document.getElementById('catAnswerToggleBtn').innerHTML=st.catShowAnswer?'&#128065; Hide Answer':'&#128065; Show Answer';
   setTimeout(()=>playChunk(), 200);
 }
 
@@ -2016,7 +2034,7 @@ function exportPassages(){
 // UPDATE CHECK — version file comparison
 // Most reliable method for PWA on Android/iOS
 // ═══════════════════════════════════════════════════════
-const APP_VERSION = '1.3';  // Bump this with every release
+const APP_VERSION = '1.4';  // Bump this with every release
 
 // Register service worker for offline support only
 if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){
