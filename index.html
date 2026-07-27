@@ -609,7 +609,7 @@ select{height:42px;}
         <div>
           <div class="settings-label">Check for updates</div>
           <div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.2</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.3</span></div>
         </div>
         <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
       </div>
@@ -2016,7 +2016,7 @@ function exportPassages(){
 // UPDATE CHECK — version file comparison
 // Most reliable method for PWA on Android/iOS
 // ═══════════════════════════════════════════════════════
-const APP_VERSION = '1.2';  // Bump this with every release
+const APP_VERSION = '1.3';  // Bump this with every release
 
 // Register service worker for offline support only
 if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){
