@@ -612,7 +612,7 @@ select{height:42px;}
         <div>
           <div class="settings-label">Check for updates</div>
           <div class="settings-sub" id="updateSub">Sync the installed app with the latest version</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.4</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">Installed: v<span id="currentVersionDisplay">1.5</span></div>
         </div>
         <button class="btn btn-sm" id="updateBtn" onclick="checkForUpdates()">Check</button>
       </div>
@@ -1382,8 +1382,10 @@ function renderLibrary(filter='all'){
   if(!data.length){ list.innerHTML='<div class="empty-state">No passages yet.<br>Tap <strong>+ Add</strong> to begin.</div>'; return; }
   list.innerHTML=data.map(p=>{
     const prog=st.progressMap[p.id]; const pct=prog?Math.round(prog.accuracy):0;
-    const bCls=pct>=80?'badge-success':pct>=40?'badge-warn':'badge-gray';
-    const bTxt=pct>=80?'Strong':pct>=40?'Progressing':'Not started';
+    const completed=prog&&prog.completed;
+    const started=prog&&prog.sessions>0;
+    const bCls=completed?'badge-success':started?'badge-warn':'badge-gray';
+    const bTxt=completed?'Complete':started?'Progressing':'Not started';
     let readyIcon='';
     if(p.format==='catechism') readyIcon=p.qnaPairs&&p.qnaPairs.length?'<span style="color:var(--success);font-size:11px;">&#10003; '+p.qnaPairs.length+' pairs</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No pairs</span>';
     else if(p.format==='responsive') readyIcon=p.respLines&&p.respLines.length?'<span style="color:var(--success);font-size:11px;">&#10003; '+p.respLines.length+' lines</span>':'<span style="color:var(--warn);font-size:11px;">&#9888; No lines</span>';
@@ -1926,7 +1928,7 @@ function checkAttempt(){
 
   const pid=p.id;
   const acc=refWords.length?Math.round(((correct+close*0.5)/refWords.length)*100):0;
-  if(!st.progressMap[pid]) st.progressMap[pid]={sessions:0,accuracy:0};
+  if(!st.progressMap[pid]) st.progressMap[pid]={sessions:0,accuracy:0,completed:false};
   const prev=st.progressMap[pid]; prev.sessions++;
   prev.accuracy=Math.round((prev.accuracy*(prev.sessions-1)+acc)/prev.sessions);
   persist();
@@ -1969,6 +1971,13 @@ function nextChunk(){
       setTimeout(()=>playChunk(), 350);
     }
   } else {
+    // All chunks done — mark as completed
+    const pid=st.activePassage?st.activePassage.id:null;
+    if(pid){
+      if(!st.progressMap[pid]) st.progressMap[pid]={sessions:0,accuracy:0,completed:false};
+      st.progressMap[pid].completed=true;
+      persist();
+    }
     alert('All chunks complete!\n\nWell done, brother.');
   }
 }
@@ -1987,17 +1996,23 @@ function drawDonut(id,pct,col){
 function renderProgress(){
   const total=st.passages.length;
   const totalSessions=Object.values(st.progressMap).reduce((a,p)=>a+p.sessions,0);
-  const strong=st.passages.filter(p=>st.progressMap[p.id]&&st.progressMap[p.id].accuracy>=80).length;
+  const mastered=st.passages.filter(p=>st.progressMap[p.id]&&st.progressMap[p.id].completed).length;
   document.getElementById('heroSub').textContent=total?`${total} passage${total!==1?'s':''} \u00b7 ${totalSessions} session${totalSessions!==1?'s':''}`:'Your journey at a glance';
-  document.getElementById('progressStats').innerHTML=`<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div><div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div><div class="stat-box"><div class="stat-num">${strong}</div><div class="stat-label">Mastered</div></div>`;
+  document.getElementById('progressStats').innerHTML=`<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Passages</div></div><div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-label">Sessions</div></div><div class="stat-box"><div class="stat-num">${mastered}</div><div class="stat-label">Complete</div></div>`;
   if(!total){document.getElementById('donutWrap').innerHTML='';document.getElementById('progressList').innerHTML='<div class="empty-state">No passages yet.</div>';return;}
   const top=st.passages.slice(0,3);
   document.getElementById('donutWrap').innerHTML=top.map(p=>`<div class="donut-item"><canvas id="dn_${p.id}" width="88" height="88"></canvas><div class="donut-label">${esc(p.title)}</div></div>`).join('');
-  setTimeout(()=>{top.forEach(p=>{const pct=st.progressMap[p.id]?Math.round(st.progressMap[p.id].accuracy):0;drawDonut('dn_'+p.id,pct,pct>=80?'#2d9e5f':pct>=40?'#c9a84c':'#ccbbaa');});},60);
+  setTimeout(()=>{top.forEach(p=>{
+    const prog=st.progressMap[p.id];
+    const pct=prog?Math.round(prog.accuracy):0;
+    const col=prog&&prog.completed?'#2d9e5f':prog&&prog.sessions>0?'#c9a84c':'#ccbbaa';
+    drawDonut('dn_'+p.id,pct,col);
+  });},60);
   document.getElementById('progressList').innerHTML=st.passages.map(p=>{
     const prog=st.progressMap[p.id];const acc=prog?Math.round(prog.accuracy):0;const sess=prog?prog.sessions:0;
-    const pctColor=acc>=80?'var(--success)':acc>=40?'var(--warn)':'var(--text3)';
-    return `<div class="progress-item"><div class="prog-header"><div class="prog-title">${esc(p.title)}</div><div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div></div><div class="prog-bar-wrap"><div class="prog-bar${acc>=80?' strong':''}" style="width:${acc}%"></div></div><div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess!==1?'s':''}</span></div></div>`;
+    const completed=prog&&prog.completed;
+    const pctColor=completed?'var(--success)':sess>0?'var(--warn)':'var(--text3)';
+    return `<div class="progress-item"><div class="prog-header"><div class="prog-title">${esc(p.title)}</div><div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:${pctColor};">${acc}%</div></div><div class="prog-bar-wrap"><div class="prog-bar${completed?' strong':''}" style="width:${acc}%"></div></div><div class="prog-meta"><span class="badge badge-navy">${p.format}</span><span>${sess} session${sess!==1?'s':''}</span>${completed?'<span style="color:var(--success);font-size:11px;">&#10003; Complete</span>':''}</div></div>`;
   }).join('');
 }
 
@@ -2034,7 +2049,7 @@ function exportPassages(){
 // UPDATE CHECK — version file comparison
 // Most reliable method for PWA on Android/iOS
 // ═══════════════════════════════════════════════════════
-const APP_VERSION = '1.4';  // Bump this with every release
+const APP_VERSION = '1.5';  // Bump this with every release
 
 // Register service worker for offline support only
 if('serviceWorker'in navigator&&/github\.io/.test(location.hostname)){
